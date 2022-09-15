@@ -1,7 +1,11 @@
 import React from 'react'
+import Header from '../components/Header'
 
 export default function Create() {
   return (
-    <div>This is create page!</div>
+    <>
+      <Header />
+      <div>This is create page!</div>
+    </>
   )
 }
