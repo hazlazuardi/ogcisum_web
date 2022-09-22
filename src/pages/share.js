@@ -27,9 +27,6 @@ export default function Share() {
 
     // Fetch sample data from API
     const [sample, setSample] = useState();
-    const [locations, setLocations] = useState();
-
-
     // Put all of the functions inside useEffect because we use it once
     useEffect(() => {
         const fetchSamples = async () => {
@@ -45,23 +42,30 @@ export default function Share() {
             }
         }
         fetchSamples();
+    }, [sampleId]);
 
+
+    const [samplesToLocations, setSamplesToLocations] = useState()
+    useEffect(() => {
         const fetchSamplesToLocations = async () => {
             const localStorageData = JSON.parse(localStorage.getItem('samples_to_locations'));
             if (localStorageData && isValidCache(localStorageData)) {
                 const filteredLocalData = localStorageData?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`);
-                setLocations(filteredLocalData);
+                setSamplesToLocations(filteredLocalData);
                 console.log('from storage')
             } else {
                 const data = await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
                 const filteredData = data?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`)
-                setLocations(filteredData);
+                setSamplesToLocations(filteredData);
                 localStorage.setItem("samples_to_locations", JSON.stringify(data))
                 console.log('from api loc')
             }
         }
         fetchSamplesToLocations()
+    }, [sampleId]);
 
+    const [locations, setLocations] = useState();
+    useEffect(() => {
         const fetchLocations = async () => {
             const localStorageData = JSON.parse(localStorage.getItem('locations'));
             if (localStorageData && isValidCache(localStorageData)) {
@@ -75,18 +79,17 @@ export default function Share() {
             }
         }
         fetchLocations();
-
-    }, [sampleId]);
+    }, []);
 
     console.log(locations)
 
     return (
         <>
-            {sample && (
-                <div className='body'>
-                    <h1>Share This Sample: {sampleId}</h1>
+            <div className='body'>
+                <h1>Share This Sample: {sampleId}</h1>
 
-                    {/* Card */}
+                {/* Card */}
+                {sample && (
                     <Card>
                         <div className={styles.sample_card_container}>
 
@@ -105,20 +108,17 @@ export default function Share() {
                         </div>
 
                     </Card>
-                    {/* Sample Name */}
-                    {/* Sample CreatedAt */}
-                    {/* Button for Preview Sample */}
+                )}
+                {/* Sample Name */}
+                {/* Sample CreatedAt */}
+                {/* Button for Preview Sample */}
 
-                    {/* List of Locations */}
-                    {/* ToggleButton for Shared or Not Shared Sample */}
-
-                    {locations?.map(location => (
-                        <>
-                            <LocationLists key={location.id} location={location.location} />
-                        </>
-                    ))}
-                </div>
-            )}
+                {/* List of Locations */}
+                {/* ToggleButton for Shared or Not Shared Sample */}
+                {!locations ? (<p>Loading...</p>) : locations?.map(location => (
+                    <LocationLists key={location.id} location={location.location} />
+                ))}
+            </div>
         </>
     )
 }
