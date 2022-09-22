@@ -1,0 +1,40 @@
+@import '../../App.css';
+
+:root {
+    --border-radius: 2px;
+    --font-weight: 800;
+}
+
+.button {
+    color: var(--fgColor);
+    background-color: white;
+    /* background: none; */
+    border: var(--border-radius) solid var(--fgColor);
+    padding: 0.5rem 1rem;
+    /* margin: 0.5rem 0.5rem; */
+
+    /* Remove default style */
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+    /* Make the hover smoother */
+    transition: 0.2s
+}
+
+.button:hover {
+    background-color: var(--fgColor);
+    color: white;
+}
+
+.button:disabled {
+    background-color: var(--bgColor);
+    color: var(--fgColorLighter);
+    border: 1px solid var(--fgColorLighter);
+}
+
+.contained {
+    background-color: var(--fgColor);
+    color: var(--bgColor);
+    border: 1px solid var(--fgColor);
+}

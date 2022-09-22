@@ -1,58 +1,59 @@
 :root {
-	--purpleColorLighter: #A42DE8;
-	--blueColorLighter: #318AFF;
-	--blueColorDarker: #2D3DE8;
-	--bgColor: #ffffff;
-	--fgColor: #800080;
-	--fgColorLighter: rgba(128,0,128,0.5);
-	--headerTextColor: #ffffff;
+  --purpleColorLighter: #A42DE8;
+  --blueColorLighter: #318AFF;
+  --blueColorDarker: #2D3DE8;
+  --bgColor: #ffffff;
+  --fgColor: #800080;
+  --fgColorLighter: rgba(128, 0, 128, 0.5);
+  --headerTextColor: #ffffff;
 }
 
+/* It follows the system's color scheme */
 @media (prefers-color-scheme: dark) {
-	:root {
-		--bgColor: #422142;
-		--fgColor: #f0c4f0;
-		--fgColorLighter: rgba(210,169,210,0.5);
-		--headerTextColor: var(--fgColor);
-	}
+  :root {
+    --bgColor: #422142;
+    --fgColor: #f0c4f0;
+    --fgColorLighter: rgba(210, 169, 210, 0.5);
+    --headerTextColor: var(--fgColor);
+  }
 }
 
-.App {
-  text-align: center;
+h1 {
+  font-family: 'DynaPuff', cursive;
+  color: var(--fgColor);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h3 {
+  font-family: 'DynaPuff', cursive;
+  font-size: x-large;
+  color: var(--fgColor);
 }
+
+h4 {
+  font-family: 'DynaPuff', cursive;
+}
+
+.body {
+  padding: 1em;
+}
+
+.sample_card_list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.create_sample_card {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-

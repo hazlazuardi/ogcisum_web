@@ -1,9 +1,13 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
-export default function Create() {
+export default function Edit() {
+
+    const { sampleId } = useParams();
+
     return (
         <>
-            <h1>Create a New Sample:</h1>
+            <h1>Edit This Sample: {sampleId}</h1>
 
 
             {/* TextField for Sample Name */}

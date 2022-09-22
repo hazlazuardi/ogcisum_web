@@ -1,0 +1,21 @@
+@import '../../App.css';
+
+.header_container {
+    background: rgb(45, 61, 232);
+    background: linear-gradient(0deg, rgba(45, 61, 232, 1) 0%, rgba(164, 45, 232, 1) 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header_item_logo {
+    padding: 0 1rem;
+    color: var(--bgColor);
+
+}
+
+.header_item_tagline {
+    padding: 1rem;
+    color: var(--bgColor);
+    text-align: end;
+}

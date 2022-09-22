@@ -5,6 +5,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Create from './pages/create';
+import Share from './pages/share';
+import Edit from './pages/edit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,6 +15,8 @@ root.render(
             <Routes>
                 <Route path="/" element={<App />} />
                 <Route path="/create" element={<Create />} />
+                <Route path="/share/:sampleId" element={<Share />} />
+                <Route path="/edit/:sampleId" element={<Edit />} />
             </Routes>
         </BrowserRouter>
   </React.StrictMode>
