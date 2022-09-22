@@ -40,12 +40,11 @@ export default function Edit() {
                 <div className='body'>
                     <h1>Edit This Sample:</h1>
 
-                    <SampleTextField sampleName={sample.name} setSample={setSample} />
-
-
                     {/* TextField for Sample Name */}
                     {/* Button for Preview Sample */}
                     {/* Button for Save Sample */}
+                    <SampleTextField sampleName={sample.name} setSample={setSample} sample={sample} />
+
 
 
                     {/* Sample Type */}

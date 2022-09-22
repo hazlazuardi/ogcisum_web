@@ -26,7 +26,7 @@ export default function App() {
 			if (isValidCache(localStorageData)) {
 				setSamples(localStorageData.samples)
 			} else {
-				const data = await fetchData(READ_URL(1, 'asc'))
+				const data = await fetchData(READ_URL(999, 'asc'))
 				setSamples(data.samples)
 				localStorage.setItem("samples", JSON.stringify(data))
 				console.log('from api')

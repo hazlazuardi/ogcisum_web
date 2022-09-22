@@ -1,69 +1,121 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
 import Button from '../components/Button/Button'
 import Card from '../components/Cards/Card'
 import styles from '../components/Cards/Card.module.css'
-
+import { fetchData } from '../helpers/apiCalls'
+import { isValidCache } from '../helpers/helpers'
 
 const SharedLocationList = (props) => {
-    const {location, isShared} = props;
+    const { location, isShared } = props;
 
     return (
         <></>
     )
 }
 
-
+const API_HOST = process.env.REACT_APP_HOST;
+const API_KEY = process.env.REACT_APP_API_KEY;
+const READ_SAMPLES_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=samples&limit=${limit}&order=${order}`
+const READ_SAMPLES_TO_LOCATIONS_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=samples_to_locations&limit=${limit}&order=${order}`
+const READ_LOCATIONS_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=locations&limit=${limit}&order=${order}`
 export default function Share() {
 
     const { sampleId } = useParams()
 
     // Fetch sample data from API
-    const [sample, setSample] = useState({
-        title: 'C.R.E.A.M',
-        createdAt: '7:40 on 25 August 2022',
-        location: {
-            1: true,
-            2: true,
-            3: false,
-            4: true,
-            5: false
+    const [sample, setSample] = useState();
+    const [locations, setLocations] = useState();
+
+
+    // Put all of the functions inside useEffect because we use it once
+    useEffect(() => {
+        const fetchSamples = async () => {
+            const localStorageData = JSON.parse(localStorage.getItem('samples'));
+            if (isValidCache(localStorageData)) {
+                setSample(localStorageData.samples.filter(sample => sample.id === `${sampleId}`)[0])
+                console.log('from storage')
+            } else {
+                const data = await fetchData(READ_SAMPLES_URL(9999, 'asc'))
+                setSample(localStorageData.samples.filter(sample => sample.id === `${sampleId}`)[0])
+                localStorage.setItem("samples", JSON.stringify(data))
+                console.log('from api')
+            }
         }
-    });
-    const { title, createdAt } = sample;
+        fetchSamples();
+
+        const fetchSamplesToLocations = async () => {
+            const localStorageData = JSON.parse(localStorage.getItem('samples_to_locations'));
+            if (localStorageData && isValidCache(localStorageData)) {
+                const filteredLocalData = localStorageData?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`);
+                setLocations(filteredLocalData);
+                console.log('from storage')
+            } else {
+                const data = await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
+                const filteredData = data?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`)
+                setLocations(filteredData);
+                localStorage.setItem("samples_to_locations", JSON.stringify(data))
+                console.log('from api loc')
+            }
+        }
+        fetchSamplesToLocations()
+
+        const fetchLocations = async () => {
+            const localStorageData = JSON.parse(localStorage.getItem('locations'));
+            if (localStorageData && isValidCache(localStorageData)) {
+                setLocations(localStorageData.locations);
+                console.log('from storage')
+            } else {
+                const data = await fetchData(READ_LOCATIONS_URL(9999, 'asc'))
+                setLocations(data.locations);
+                localStorage.setItem("locations", JSON.stringify(data))
+                console.log('from api loc')
+            }
+        }
+        fetchLocations();
+
+    }, [sampleId]);
+
+    console.log(locations)
 
     return (
         <>
-            <div className='body'>
-                <h1>Share This Sample: {sampleId}</h1>
+            {sample && (
+                <div className='body'>
+                    <h1>Share This Sample: {sampleId}</h1>
 
-                {/* Card */}
-                <Card>
-                    <div className={styles.sample_card_container}>
+                    {/* Card */}
+                    <Card>
+                        <div className={styles.sample_card_container}>
 
-                        {/* Grid Item 1 */}
-                        <div className={styles.sample_card_item_text}>
-                            <h3>{title}</h3>
-                            <p>{createdAt}</p>
+                            {/* Grid Item 1 */}
+                            <div className={styles.sample_card_item_text}>
+                                <h3>{sample.name}</h3>
+                                <p>{sample.datetime}</p>
+                            </div>
+
+                            {/* Grid Item 2 */}
+                            <div className={styles.sample_card_item_action} >
+                                <Button>Preview</Button>
+
+
+                            </div>
                         </div>
 
-                        {/* Grid Item 2 */}
-                        <div className={styles.sample_card_item_action} >
-                            <Button>Preview</Button>
+                    </Card>
+                    {/* Sample Name */}
+                    {/* Sample CreatedAt */}
+                    {/* Button for Preview Sample */}
 
+                    {/* List of Locations */}
+                    {/* ToggleButton for Shared or Not Shared Sample */}
 
-                        </div>
-                    </div>
-
-                </Card>
-                {/* Sample Name */}
-                {/* Sample CreatedAt */}
-                {/* Button for Preview Sample */}
-
-                {/* List of Locations */}
-                {/* ToggleButton for Shared or Not Shared Sample */}
-            </div>
+                    {locations?.map(location => (
+                        <p>{location.location}</p>
+                    ))}
+                </div>
+            )}
         </>
     )
 }

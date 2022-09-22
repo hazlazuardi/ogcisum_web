@@ -22,7 +22,9 @@ export default function SampleCard(props) {
 
                     {/* Grid Item 2 */}
                     <div className={styles.sample_card_item_action} >
-                        <Button disabled={shared}>Share</Button>
+                        <Link to={`share/${id}`} >
+                            <Button disabled={shared}>Share</Button>
+                        </Link>
                         <Button>Preview</Button>
                         <Link to={`edit/${id}`} >
                             <Button variant='contained' >Edit</Button>
