@@ -1,0 +1,36 @@
+@import '../../App.css';
+
+
+
+.text_field_container {
+    width: calc(100% - 2rem);
+    /* max-width: calc(500px - 4rem); */
+}
+
+.text_field {
+    background-color: var(--fgColorLighter);
+    padding: 0.5rem 1rem;
+    color: var(--fgColor);
+    border-radius: 1rem;
+    font-size: x-large;
+    font-family: var(--fontFamily);
+    width: 100%;
+    /* max-width: calc(500px - 4rem); */
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: var(--fgColor);
+    opacity: 1;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: var(--fgColor);
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: var(--fgColor);
+}

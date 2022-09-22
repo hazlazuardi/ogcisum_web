@@ -45,7 +45,7 @@ export default function App() {
 				{/* List of Cards */}
 				<div className='sample_card_list'>
 					{samples?.map(sample => (
-						<SampleCard key={sample.id} title={sample.name} createdAt={sample.datetime} />
+						<SampleCard key={sample.id} id={sample.id} title={sample.name} createdAt={sample.datetime} />
 					))}
 
 

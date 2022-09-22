@@ -6,6 +6,7 @@
   --fgColor: #800080;
   --fgColorLighter: rgba(128, 0, 128, 0.5);
   --headerTextColor: #ffffff;
+  --fontFamily: 'DynaPuff', cursive;
 }
 
 /* It follows the system's color scheme */
@@ -19,18 +20,18 @@
 }
 
 h1 {
-  font-family: 'DynaPuff', cursive;
+  font-family: var(--fontFamily);
   color: var(--fgColor);
 }
 
 h3 {
-  font-family: 'DynaPuff', cursive;
+  font-family: var(--fontFamily);
   font-size: x-large;
   color: var(--fgColor);
 }
 
 h4 {
-  font-family: 'DynaPuff', cursive;
+  font-family: var(--fontFamily);
 }
 
 .body {
