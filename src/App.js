@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Button from './components/Button/Button';
-import Header from './components/Header/Header'
 import SampleCard from './components/Cards/SampleCard';
 import './App.css'
 import Card from './components/Cards/Card';
@@ -29,7 +28,6 @@ export default function App() {
 
   return (
     <>
-      <Header />
       <div className='body'>
         <h1>Samples You've Created</h1>
 

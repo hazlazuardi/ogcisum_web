@@ -7,18 +7,20 @@ import reportWebVitals from './reportWebVitals';
 import Create from './pages/create';
 import Share from './pages/share';
 import Edit from './pages/edit';
+import Header from './components/Header/Header';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<App />} />
-                <Route path="/create" element={<Create />} />
-                <Route path="/share/:sampleId" element={<Share />} />
-                <Route path="/edit/:sampleId" element={<Edit />} />
-            </Routes>
-        </BrowserRouter>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/create" element={<Create />} />
+        <Route path="/share/:sampleId" element={<Share />} />
+        <Route path="/edit/:sampleId" element={<Edit />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
