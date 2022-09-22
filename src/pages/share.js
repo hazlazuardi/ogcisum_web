@@ -4,6 +4,7 @@ import '../App.css'
 import Button from '../components/Button/Button'
 import Card from '../components/Cards/Card'
 import styles from '../components/Cards/Card.module.css'
+import LocationLists from '../components/LocationLists/LocationLists'
 import { fetchData } from '../helpers/apiCalls'
 import { isValidCache } from '../helpers/helpers'
 
@@ -112,7 +113,9 @@ export default function Share() {
                     {/* ToggleButton for Shared or Not Shared Sample */}
 
                     {locations?.map(location => (
-                        <p>{location.location}</p>
+                        <>
+                            <LocationLists key={location.id} location={location.location} />
+                        </>
                     ))}
                 </div>
             )}

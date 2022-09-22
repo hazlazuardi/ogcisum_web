@@ -1,3 +1,6 @@
+
+const CACHE_AGE = 30;
+
 // Function to cache data from API to Local Storage
 // Attach timestamp to know when the data is stored into Local Storage
 export const addTimestamp = (data) => {
@@ -20,5 +23,5 @@ export const isValidCache = (data) => {
     const dataTimestamp = data.timestamp;
     const currentDateTime = Math.floor(new Date().getTime() / 1000);
     console.log(`curr: ${currentDateTime}, data: ${dataTimestamp}, ${currentDateTime - dataTimestamp}`)
-    return currentDateTime - dataTimestamp < 30
+    return currentDateTime - dataTimestamp < CACHE_AGE
 }

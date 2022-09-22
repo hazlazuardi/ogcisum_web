@@ -13,7 +13,7 @@
     color: var(--fgColor);
     border-radius: 1rem;
     font-size: x-large;
-    font-family: var(--fontFamily);
+    font-family: var(--headerFontFamily);
     width: 100%;
     /* max-width: calc(500px - 4rem); */
 }

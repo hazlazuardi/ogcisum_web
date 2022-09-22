@@ -6,7 +6,9 @@
   --fgColor: #800080;
   --fgColorLighter: rgba(128, 0, 128, 0.5);
   --headerTextColor: #ffffff;
-  --fontFamily: 'DynaPuff', cursive;
+  --headerFontFamily: 'DynaPuff', cursive;
+  --bodyFontFamily: 'Ubuntu', sans-serif;
+
 }
 
 /* It follows the system's color scheme */
@@ -20,22 +22,27 @@
 }
 
 h1 {
-  font-family: var(--fontFamily);
+  font-family: var(--headerFontFamily);
   color: var(--fgColor);
 }
 
 h3 {
-  font-family: var(--fontFamily);
+  font-family: var(--headerFontFamily);
   font-size: x-large;
   color: var(--fgColor);
 }
 
 h4 {
-  font-family: var(--fontFamily);
+  font-family: var(--headerFontFamily);
+}
+
+p {
+  font-family: var(--bodyFontFamily);
 }
 
 .body {
   padding: 1em;
+  font-family: var(--bodyFontFamily);
 }
 
 .sample_card_list {

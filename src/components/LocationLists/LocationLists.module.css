@@ -1,0 +1,17 @@
+@import '../../App.css';
+
+
+.container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 1rem 0 1rem 1rem;
+}
+
+.item {
+    flex-grow: 1;
+}
+
+.item_action {
+    display: flex;
+    justify-content: flex-end;
+}
