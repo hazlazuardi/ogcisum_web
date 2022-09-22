@@ -4,7 +4,6 @@ import styles from './Button.module.css'
 export default function Button(props) {
 
     const { children, variant, disabled } = props;
-    console.log(variant)
 
     const buttonVariant = variant => {
         if (variant === 'contained') return styles.contained
