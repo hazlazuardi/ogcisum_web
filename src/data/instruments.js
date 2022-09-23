@@ -4,6 +4,8 @@ export const toneObject = Tone;
 
 export const toneTransport = toneObject.Transport;
 
+// TODO
+// Adjust so it can attack multiple notes
 export const tonePart = new toneObject.Part((time, note) => {
     guitar.triggerAttackRelease(note, "8n", time);
 }, []).start(0);

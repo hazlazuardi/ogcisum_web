@@ -5,12 +5,13 @@ import ToggleButton from '../components/Button/ToggleButton';
 import { synth, guitar } from "../data/instruments.js";
 import SampleToneCreator from '../components/SampleToneCreator/SampleToneCreator';
 import styles from '../components/SampleToneCreator/SampleToneCreator.module.css'
+import Button from '../components/Button/Button';
 
 
-function Bar({ barID, barEnabled, handleBarClick }) {
+function Bar({ barID, barToggled, handleBarClick }) {
 
     function barSelected() {
-        if (barEnabled) {
+        if (barToggled) {
             return "contained";
         }
         return "";
@@ -24,7 +25,7 @@ function Bar({ barID, barEnabled, handleBarClick }) {
     );
 }
 
-function Bars({ sequence, setSequence, toneObject, chord }) {
+function Bars({ sequence, setSequence, toneObject, note }) {
 
     function sortSequence(bar, otherBar) {
         if (bar.barID < otherBar.barID) {
@@ -38,9 +39,9 @@ function Bars({ sequence, setSequence, toneObject, chord }) {
 
     function handleBarClick(bar) {
         const now = toneObject.now();
-        guitar.triggerAttackRelease(chord, "8n", now);
+        guitar.triggerAttackRelease(note, "8n", now);
         let filteredSequence = sequence.filter((_bar) => _bar.barID !== bar.barID);
-        setSequence([...filteredSequence, { ...bar, barEnabled: !bar.barEnabled }]);
+        setSequence([...filteredSequence, { ...bar, barToggled: !bar.barToggled }]);
     }
 
     return sequence.sort(sortSequence).map(bar => <Bar key={bar.barID} {...bar} handleBarClick={() => handleBarClick(bar)} />);
@@ -66,32 +67,33 @@ function Preview({ previewing, setPreviewing, toneObject, toneTransport }) {
 
     }
 
-    return <button onClick={handleButtonClick}>{previewing ? "Stop Previewing" : "Preview"}</button>;
+    return <Button onClick={handleButtonClick} disabled={previewing} >{previewing ? "Stop Previewing" : "Preview"}</Button>;
 
 }
 
-function Sequencer({ toneObject, toneTransport, tonePart, chord }) {
+function Sequencer({ toneObject, toneTransport, tonePart, note, previewing, setPreviewing }) {
 
     const initialSequence = [];
     for (let bar = 1; bar <= 16; bar++) {
         initialSequence.push({
             barID: bar,
-            barEnabled: false,
-            //barEnabled: bar % 2 == 1 ? true : false, // Pre-fill every second bar for testing
+            barToggled: false,
+            //barToggled: bar % 2 == 1 ? true : false, // Pre-fill every second bar for testing
         });
     }
     const [sequence, setSequence] = useState(initialSequence);
 
     const initialPreviewing = false;
-    const [previewing, setPreviewing] = useState(initialPreviewing);
+    // const [previewing, setPreviewing] = useState(initialPreviewing);
 
     useEffect(() => {
 
         tonePart.clear();
         toneTransport.cancel();
 
-        sequence.filter(bar => bar.barEnabled).forEach(bar => {
-            tonePart.add((bar.barID - 1) / 4, chord); // Plays an C note on 3rd octave 0.25s apart
+        sequence.filter(bar => bar.barToggled).forEach(bar => {
+            tonePart.add((bar.barID - 1) / 4, note); // Plays an C note on 3rd octave 0.25s apart
+            tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
         });
 
         toneTransport.schedule(time => {
@@ -108,21 +110,21 @@ function Sequencer({ toneObject, toneTransport, tonePart, chord }) {
 
                 {/* Item 1 */}
                 <div className={styles.type_item_text}>
-                    <p>{chord}</p>
+                    <p>{note}</p>
                 </div>
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sequence={sequence} setSequence={setSequence} toneObject={toneObject} chord={chord} />
+                    <Bars sequence={sequence} setSequence={setSequence} toneObject={toneObject} note={note} />
                 </div>
             </div>
 
-            <div className="sequencer">
+            {/* <div className="sequencer">
             </div>
             <h4>Play Multiple Bars From Sequence</h4>
-            <p>
-                <Preview previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} />
-            </p>
+            <p> */}
+            {/* <Preview previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} />
+            </p> */}
         </>
     );
 
@@ -132,6 +134,7 @@ function Sequencer({ toneObject, toneTransport, tonePart, chord }) {
 
 export default function Create({ toneObject, toneTransport, tonePart }) {
 
+    const [previewing, setPreviewing] = useState();
     const [sample, setSample] = useState();
     return (
         <>
@@ -150,9 +153,15 @@ export default function Create({ toneObject, toneTransport, tonePart }) {
 
                 {/* Sample Tones */}
                 {/* ToggleBuyyon for Sample Tones */}
-                {/* <SampleToneCreator /> */}
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} chord={"C3"} />
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} chord={"B2"} />
+                <SampleToneCreator />
+                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"B3"} previewing={previewing} setPreviewing={setPreviewing} />
+                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"A3"} previewing={previewing} setPreviewing={setPreviewing} />
+                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"G3"} previewing={previewing} setPreviewing={setPreviewing} />
+                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"F3"} previewing={previewing} setPreviewing={setPreviewing} />
+                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"E3"} previewing={previewing} setPreviewing={setPreviewing} />
+                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"D3"} previewing={previewing} setPreviewing={setPreviewing} />
+                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"C3"} previewing={previewing} setPreviewing={setPreviewing} />
+                <Preview previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} />
             </div>
         </>
     )

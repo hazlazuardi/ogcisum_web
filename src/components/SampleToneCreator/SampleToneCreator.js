@@ -17,22 +17,22 @@ export default function SampleToneCreator() {
                 <div className={styles.type_item_action}>
                     <ToggleButton>Piano</ToggleButton>
                     <ToggleButton>French Horn</ToggleButton>
-                    <ToggleButton>Guitar</ToggleButton>
+                    <ToggleButton variant={'contained'} >Guitar</ToggleButton>
                     <ToggleButton>Drums</ToggleButton>
                 </div>
             </div>
 
-            
+
             {/* Container */}
-            <div className={styles.type_container}>
+            {/* <div className={styles.type_container}> */}
 
-                {/* Item 1 */}
-                <div className={styles.type_item_text}>
+            {/* Item 1 */}
+            {/* <div className={styles.type_item_text}>
                     <p>B</p>
-                </div>
+                </div> */}
 
-                {/* Item 2 */}
-                <div className={styles.type_item_action}>
+            {/* Item 2 */}
+            {/* <div className={styles.type_item_action}>
                     <ToggleButton>  </ToggleButton>
                     <ToggleButton>  </ToggleButton>
                     <ToggleButton>  </ToggleButton>
@@ -50,7 +50,7 @@ export default function SampleToneCreator() {
                     <ToggleButton>  </ToggleButton>
                     <ToggleButton>  </ToggleButton>
                 </div>
-            </div>
+            </div> */}
 
 
 
