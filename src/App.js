@@ -51,13 +51,13 @@ export default function App() {
 
 
 					{/* Create Sample Button */}
-					<Link to={'/create'}>
-						<Card>
-							<div className={`create_sample_card`}>
+					<Card>
+						<div className={`create_sample_card`}>
+							<Link to={'/create'}>
 								<Button variant='contained'>Create Sample</Button>
-							</div>
-						</Card>
-					</Link>
+							</Link>
+						</div>
+					</Card>
 				</div>
 			</div>
 		</>

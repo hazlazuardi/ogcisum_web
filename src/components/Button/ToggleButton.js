@@ -1,15 +1,15 @@
 import React from 'react'
 import styles from './Button.module.css'
 
-export default function ToggleButton(props) {
+export default function ToggleButton({ children, variant, onClick }) {
 
-    const { children, variant } = props;
-    const buttonVariant = variant => {
-        if (variant === 'contained') return styles.contained
+    const buttonVariant = (type) => {
+        if (type === 'contained') return styles.contained
+        else return styles.toggle_button
 
     }
 
     return (
-        <button type="button" className={`${styles.toggle_button} ${buttonVariant(variant)}`}>{children}</button>
+        <button type="button" className={`${buttonVariant(variant)}`} onClick={onClick}>{children}</button>
     )
 }

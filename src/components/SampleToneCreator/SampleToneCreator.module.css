@@ -1,0 +1,23 @@
+@import '../../App.css';
+
+.type_container {
+    display: grid;
+    grid-template-columns: 10% 90%;
+    padding: 1rem 0;
+    /* gap: 1rem; */
+}
+
+.type_item_text {
+    /* width: 20%; */
+    display: flex;
+    justify-self: end;
+}
+
+.type_item_action {
+    display: flex;
+    justify-content: space-evenly;
+    justify-self: stretch;
+    padding: 0 0 0 1rem;
+    /* flex-grow: 1; */
+    /* width: 100%; */
+}

@@ -4,9 +4,8 @@ import Button from '../Button/Button'
 import Card from './Card'
 import styles from './Card.module.css'
 
-export default function SampleCard(props) {
+export default function SampleCard({ id, title, createdAt, shared }) {
 
-    const { id, title, createdAt, shared } = props;
 
     return (
         <>

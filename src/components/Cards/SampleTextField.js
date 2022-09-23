@@ -7,6 +7,8 @@ import styles from './Card.module.css'
 export default function SampleTextField(props) {
     return (
         <>
+
+            {/* Input Sample Name */}
             <Card>
                 <div className={styles.sample_text_field_container}>
                     <div className={styles.text_field}>

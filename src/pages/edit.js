@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
+import ToggleButton from '../components/Button/ToggleButton';
 import SampleTextField from '../components/Cards/SampleTextField';
+import SampleToneCreator from '../components/SampleToneCreator/SampleToneCreator';
 import { fetchData } from '../helpers/apiCalls';
 import { isValidCache } from '../helpers/helpers';
 
@@ -49,9 +51,9 @@ export default function Edit() {
 
                     {/* Sample Type */}
                     {/* ToggleButton for Sample Type */}
-
                     {/* Sample Tones */}
                     {/* ToggleBuyyon for Sample Tones */}
+                    <SampleToneCreator />
 
                 </div>
             )}

@@ -8,8 +8,7 @@ import LocationLists from '../components/LocationLists/LocationLists'
 import { fetchData } from '../helpers/apiCalls'
 import { isValidCache } from '../helpers/helpers'
 
-const SharedLocationList = (props) => {
-    const { location, isShared } = props;
+const SharedLocationList = ({ location, isShared }) => {
 
     return (
         <></>

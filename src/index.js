@@ -8,6 +8,7 @@ import Create from './pages/create';
 import Share from './pages/share';
 import Edit from './pages/edit';
 import Header from './components/Header/Header';
+import { toneObject, toneTransport, tonePart } from "./data/instruments.js";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,7 +17,7 @@ root.render(
       <Header />
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/create" element={<Create />} />
+        <Route path="/create" element={<Create toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />} />
         <Route path="/share/:sampleId" element={<Share />} />
         <Route path="/edit/:sampleId" element={<Edit />} />
       </Routes>

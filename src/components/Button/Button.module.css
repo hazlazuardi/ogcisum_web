@@ -34,6 +34,21 @@
 }
 
 .contained {
+    width: 100%;
+    border-color: var(--bgColor);
+    padding: 0 1rem;
+    border-bottom: 5px solid var(--fgColor);
+    /* background: none; */
+    padding: 0.5rem 1rem;
+
+    /* Remove default style */
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+    /* Make the hover smoother */
+    transition: 0.2s;
+
     background-color: var(--fgColor);
     color: var(--bgColor);
     border: 1px solid var(--fgColor);
@@ -64,4 +79,8 @@
 .toggle_button:hover {
     background-color: var(--fgColor);
     color: white;
+}
+
+.toggle_button.active {
+    background-color: var(--fgColor);
 }

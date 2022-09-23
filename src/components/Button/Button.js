@@ -1,9 +1,7 @@
 import React from 'react'
 import styles from './Button.module.css'
 
-export default function Button(props) {
-
-    const { children, variant, disabled } = props;
+export default function Button({ children, variant, disabled }) {
 
     const buttonVariant = variant => {
         if (variant === 'contained') return styles.contained

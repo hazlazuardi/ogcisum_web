@@ -2,9 +2,7 @@ import React from 'react'
 import ToggleButton from '../Button/ToggleButton';
 import styles from './LocationLists.module.css'
 
-export default function LocationLists(props) {
-
-    const { location, isShared } = props;
+export default function LocationLists({ location, isShared }) {
 
     return (
         <>
