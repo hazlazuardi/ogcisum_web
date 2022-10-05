@@ -16,7 +16,7 @@ root.render(
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<App toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />} />
         <Route path="/create" element={<Create toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />} />
         <Route path="/share/:sampleId" element={<Share />} />
         <Route path="/edit/:sampleId" element={<Edit />} />

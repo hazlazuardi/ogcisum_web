@@ -7,7 +7,7 @@
 
 .button {
     color: var(--fgColor);
-    background-color: white;
+    background-color: var(--bgColor);
     /* background: none; */
     border: var(--border-radius) solid var(--fgColor);
     padding: 0.5rem 1rem;
@@ -19,7 +19,8 @@
     outline: inherit;
 
     /* Make the hover smoother */
-    transition: 0.2s
+    transition: 0.2s;
+    white-space: nowrap
 }
 
 .button:hover {
@@ -63,7 +64,7 @@
     border-bottom: 5px solid var(--fgColor);
 
     color: var(--fgColor);
-    background-color: white;
+    background-color: var(--bgColor);
     /* background: none; */
     padding: 0.5rem 1rem;
 

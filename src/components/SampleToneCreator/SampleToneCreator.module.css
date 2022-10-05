@@ -11,6 +11,7 @@
     /* width: 20%; */
     display: flex;
     justify-self: end;
+    color: var(--headerTextColor);
 }
 
 .type_item_action {

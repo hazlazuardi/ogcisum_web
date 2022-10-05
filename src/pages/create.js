@@ -17,7 +17,7 @@ function Bar({ barID, barToggled, handleBarClick }) {
         return "";
     }
 
-    console.log('id:' + barID + ' sel: ' + barSelected() + ' note: ')
+    // console.log('id:' + barID + ' sel: ' + barSelected() + ' note: ')
     return (
         <ToggleButton variant={barSelected()} onClick={handleBarClick}>
             {barID}
@@ -73,15 +73,6 @@ function Preview({ previewing, setPreviewing, toneObject, toneTransport }) {
 
 function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreviewing }) {
 
-    const notes = [
-        "B3",
-        "A3",
-        "G3",
-        "F3",
-        "E3",
-        "D3",
-        "C3"
-    ]
     const initialSequence = [];
     for (let bar = 1; bar <= 16; bar++) {
         initialSequence.push({
@@ -90,8 +81,56 @@ function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreview
             //barToggled: bar % 2 == 1 ? true : false, // Pre-fill every second bar for testing
         });
     }
-    const [sequence, setSequence] = useState(initialSequence);
 
+    const initialData = [
+        {
+            "B": [
+                true,
+                true,
+                false,
+                false,
+                false,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+            ]
+        },
+        { "B": [] },
+        { "A": [] },
+        {
+            "G": [
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false
+            ]
+        },
+        { "F": [] },
+        { "E": [] },
+        { "D": [] },
+        { "C": [] },
+    ]
+    const [recordingData, setRecordingData] = useState(initialData)
 
     const [sequenceB, setSequenceB] = useState(initialSequence);
     const [sequenceA, setSequenceA] = useState(initialSequence);
@@ -101,42 +140,55 @@ function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreview
     const [sequenceD, setSequenceD] = useState(initialSequence);
     const [sequenceC, setSequenceC] = useState(initialSequence);
 
+    // useEffect(() => {
+    //     tonePart.clear();
+    //     toneTransport.cancel();
 
-    // const initialPreviewing = false;
-    // const [previewing, setPreviewing] = useState(initialPreviewing);
+    //     recordingData.map((note) => {
+    //         // console.log(Object.keys(note)[0], Object.values(note))
+    //         Object.values(note).forEach((bars) => {
+    //             bars.forEach((bar, index) => {
+    //                 if (bar === true) {
+    //                     tonePart.add(index / 4, `${Object.keys(note)[0].toString()}3`)
+    //                 }
+    //             })
+    //         })
+    //     })
+
+    //     toneTransport.schedule(time => {
+    //         setPreviewing(false);
+    //         console.log("Preview stopped automatically.");
+    //     }, 16 / 4);
+
+
+    // })
+
 
     useEffect(() => {
 
         tonePart.clear();
         toneTransport.cancel();
-
+        
         sequenceB.filter(bar => bar.barToggled).forEach(bar => {
             tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
-            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
         });
         sequenceA.filter(bar => bar.barToggled).forEach(bar => {
             tonePart.add((bar.barID - 1) / 4, "A3"); // Plays an C note on 3rd octave 0.25s apart
-            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
         });
         sequenceG.filter(bar => bar.barToggled).forEach(bar => {
             tonePart.add((bar.barID - 1) / 4, "G3"); // Plays an C note on 3rd octave 0.25s apart
-            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
         });
         sequenceF.filter(bar => bar.barToggled).forEach(bar => {
             tonePart.add((bar.barID - 1) / 4, "F3"); // Plays an C note on 3rd octave 0.25s apart
-            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
         });
         sequenceE.filter(bar => bar.barToggled).forEach(bar => {
             tonePart.add((bar.barID - 1) / 4, "E3"); // Plays an C note on 3rd octave 0.25s apart
-            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
         });
         sequenceD.filter(bar => bar.barToggled).forEach(bar => {
             tonePart.add((bar.barID - 1) / 4, "D3"); // Plays an C note on 3rd octave 0.25s apart
-            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
         });
         sequenceC.filter(bar => bar.barToggled).forEach(bar => {
             tonePart.add((bar.barID - 1) / 4, "C3"); // Plays an C note on 3rd octave 0.25s apart
-            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
         });
 
         toneTransport.schedule(time => {
@@ -145,6 +197,20 @@ function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreview
         }, 16 / 4);
 
     });
+
+    useEffect(() => {
+        setRecordingData([
+            { "B": sequenceB },
+            { "A": sequenceA },
+            { "G": sequenceG },
+            { "F": sequenceF },
+            { "E": sequenceE },
+            { "D": sequenceD },
+            { "C": sequenceC },
+        ])
+    }, [sequenceA, sequenceB, sequenceC, sequenceD, sequenceE, sequenceF, sequenceG])
+
+    console.log('recordingData', recordingData)
 
     return (
         <>
@@ -233,13 +299,6 @@ function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreview
                     <Bars sequence={sequenceC} setSequence={setSequenceC} toneObject={toneObject} note="C3" />
                 </div>
             </div>
-
-            {/* <div className="sequencer">
-            </div>
-            <h4>Play Multiple Bars From Sequence</h4>
-            <p> */}
-            {/* <Preview previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} />
-            </p> */}
         </>
     );
 
@@ -255,22 +314,10 @@ export default function Create({ toneObject, toneTransport, tonePart }) {
         <>
             <div className='body'>
                 <h1>Create a New Sample:</h1>
-
-
-                {/* TextField for Sample Name */}
-                {/* Button for Preview Sample */}
-                {/* Button for Save Sample */}
-                <SampleTextField setSample={setSample} sample={sample} />
-
-
-                {/* Sample Type */}
-                {/* ToggleButton for Sample Type */}
-
-                {/* Sample Tones */}
-                {/* ToggleButton for Sample Tones */}
-                {/* <SampleToneCreator /> */}
+                <SampleTextField previewButton={<Preview previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} />
+                } setSample={setSample} sample={sample} />
+                <SampleToneCreator />
                 <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} previewing={previewing} setPreviewing={setPreviewing} />
-                <Preview previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} />
             </div>
         </>
     )

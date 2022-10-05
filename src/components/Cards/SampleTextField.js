@@ -5,6 +5,7 @@ import Card from './Card'
 import styles from './Card.module.css'
 
 export default function SampleTextField(props) {
+    const { previewButton } = props
     return (
         <>
 
@@ -15,7 +16,8 @@ export default function SampleTextField(props) {
                         <TextField {...props} />
                     </div>
                     <div className={styles.sample_card_item_action}>
-                        <Button>Preview</Button>
+                        {/* <Button>Preview</Button> */}
+                        {previewButton}
                         <Button variant='contained'>Save</Button>
                     </div>
                 </div>
