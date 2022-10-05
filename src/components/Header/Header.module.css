@@ -9,7 +9,7 @@
 }
 
 .header_logo {
-    color: var(--bgColor);
+    color: var(--headerTextColor);
 }
 
 .header_logo_container {
@@ -34,6 +34,6 @@
 
 .header_tagline {
     padding: 1rem;
-    color: var(--bgColor);
+    color: var(--headerTextColor);
     text-align: end;
 }

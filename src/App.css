@@ -40,6 +40,11 @@ p {
   font-family: var(--bodyFontFamily);
 }
 
+html {
+  background-color: var(--bgColor);
+
+}
+
 .body {
   padding: 1em;
   font-family: var(--bodyFontFamily);

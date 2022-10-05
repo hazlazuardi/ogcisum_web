@@ -4,9 +4,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Create from './pages/create';
-import Share from './pages/share';
-import Edit from './pages/edit';
+import Create from './pages/Create';
+import Share from './pages/Share';
+import Edit from './pages/Edit';
 import Header from './components/Header/Header';
 import { toneObject, toneTransport, tonePart } from "./data/instruments.js";
 

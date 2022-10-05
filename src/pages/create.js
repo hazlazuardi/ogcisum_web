@@ -17,10 +17,10 @@ function Bar({ barID, barToggled, handleBarClick }) {
         return "";
     }
 
-    console.log('id:' + barID + ' sel: ' + barSelected())
+    console.log('id:' + barID + ' sel: ' + barSelected() + ' note: ')
     return (
         <ToggleButton variant={barSelected()} onClick={handleBarClick}>
-            {/* {barID} */}
+            {barID}
         </ToggleButton>
     );
 }
@@ -71,8 +71,17 @@ function Preview({ previewing, setPreviewing, toneObject, toneTransport }) {
 
 }
 
-function Sequencer({ toneObject, toneTransport, tonePart, note, previewing, setPreviewing }) {
+function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreviewing }) {
 
+    const notes = [
+        "B3",
+        "A3",
+        "G3",
+        "F3",
+        "E3",
+        "D3",
+        "C3"
+    ]
     const initialSequence = [];
     for (let bar = 1; bar <= 16; bar++) {
         initialSequence.push({
@@ -83,7 +92,17 @@ function Sequencer({ toneObject, toneTransport, tonePart, note, previewing, setP
     }
     const [sequence, setSequence] = useState(initialSequence);
 
-    const initialPreviewing = false;
+
+    const [sequenceB, setSequenceB] = useState(initialSequence);
+    const [sequenceA, setSequenceA] = useState(initialSequence);
+    const [sequenceG, setSequenceG] = useState(initialSequence);
+    const [sequenceF, setSequenceF] = useState(initialSequence);
+    const [sequenceE, setSequenceE] = useState(initialSequence);
+    const [sequenceD, setSequenceD] = useState(initialSequence);
+    const [sequenceC, setSequenceC] = useState(initialSequence);
+
+
+    // const initialPreviewing = false;
     // const [previewing, setPreviewing] = useState(initialPreviewing);
 
     useEffect(() => {
@@ -91,9 +110,33 @@ function Sequencer({ toneObject, toneTransport, tonePart, note, previewing, setP
         tonePart.clear();
         toneTransport.cancel();
 
-        sequence.filter(bar => bar.barToggled).forEach(bar => {
-            tonePart.add((bar.barID - 1) / 4, note); // Plays an C note on 3rd octave 0.25s apart
+        sequenceB.filter(bar => bar.barToggled).forEach(bar => {
             tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
+            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
+        });
+        sequenceA.filter(bar => bar.barToggled).forEach(bar => {
+            tonePart.add((bar.barID - 1) / 4, "A3"); // Plays an C note on 3rd octave 0.25s apart
+            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
+        });
+        sequenceG.filter(bar => bar.barToggled).forEach(bar => {
+            tonePart.add((bar.barID - 1) / 4, "G3"); // Plays an C note on 3rd octave 0.25s apart
+            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
+        });
+        sequenceF.filter(bar => bar.barToggled).forEach(bar => {
+            tonePart.add((bar.barID - 1) / 4, "F3"); // Plays an C note on 3rd octave 0.25s apart
+            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
+        });
+        sequenceE.filter(bar => bar.barToggled).forEach(bar => {
+            tonePart.add((bar.barID - 1) / 4, "E3"); // Plays an C note on 3rd octave 0.25s apart
+            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
+        });
+        sequenceD.filter(bar => bar.barToggled).forEach(bar => {
+            tonePart.add((bar.barID - 1) / 4, "D3"); // Plays an C note on 3rd octave 0.25s apart
+            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
+        });
+        sequenceC.filter(bar => bar.barToggled).forEach(bar => {
+            tonePart.add((bar.barID - 1) / 4, "C3"); // Plays an C note on 3rd octave 0.25s apart
+            // tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
         });
 
         toneTransport.schedule(time => {
@@ -106,16 +149,88 @@ function Sequencer({ toneObject, toneTransport, tonePart, note, previewing, setP
     return (
         <>
             {/* Container */}
-            <div className={styles.type_container}>
+            <div key={"B3"} className={styles.type_container}>
 
                 {/* Item 1 */}
                 <div className={styles.type_item_text}>
-                    <p>{note}</p>
+                    <p>{"B3"}</p>
                 </div>
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sequence={sequence} setSequence={setSequence} toneObject={toneObject} note={note} />
+                    <Bars sequence={sequenceB} setSequence={setSequenceB} toneObject={toneObject} note={"B3"} />
+                </div>
+            </div>
+            <div key={"A3"} className={styles.type_container}>
+
+                {/* Item 1 */}
+                <div className={styles.type_item_text}>
+                    <p>{"A3"}</p>
+                </div>
+
+                {/* Item 2 */}
+                <div className={styles.type_item_action}>
+                    <Bars sequence={sequenceA} setSequence={setSequenceA} toneObject={toneObject} note="A3" />
+                </div>
+            </div>
+            <div key={"G3"} className={styles.type_container}>
+
+                {/* Item 1 */}
+                <div className={styles.type_item_text}>
+                    <p>{"G3"}</p>
+                </div>
+
+                {/* Item 2 */}
+                <div className={styles.type_item_action}>
+                    <Bars sequence={sequenceG} setSequence={setSequenceG} toneObject={toneObject} note="G3" />
+                </div>
+            </div>
+            <div key={"F3"} className={styles.type_container}>
+
+                {/* Item 1 */}
+                <div className={styles.type_item_text}>
+                    <p>{"F3"}</p>
+                </div>
+
+                {/* Item 2 */}
+                <div className={styles.type_item_action}>
+                    <Bars sequence={sequenceF} setSequence={setSequenceF} toneObject={toneObject} note="F3" />
+                </div>
+            </div>
+            <div key={"E3"} className={styles.type_container}>
+
+                {/* Item 1 */}
+                <div className={styles.type_item_text}>
+                    <p>{"E3"}</p>
+                </div>
+
+                {/* Item 2 */}
+                <div className={styles.type_item_action}>
+                    <Bars sequence={sequenceE} setSequence={setSequenceE} toneObject={toneObject} note="E3" />
+                </div>
+            </div>
+            <div key={"D3"} className={styles.type_container}>
+
+                {/* Item 1 */}
+                <div className={styles.type_item_text}>
+                    <p>{"D3"}</p>
+                </div>
+
+                {/* Item 2 */}
+                <div className={styles.type_item_action}>
+                    <Bars sequence={sequenceD} setSequence={setSequenceD} toneObject={toneObject} note="D3" />
+                </div>
+            </div>
+            <div key={"C3"} className={styles.type_container}>
+
+                {/* Item 1 */}
+                <div className={styles.type_item_text}>
+                    <p>{"C3"}</p>
+                </div>
+
+                {/* Item 2 */}
+                <div className={styles.type_item_action}>
+                    <Bars sequence={sequenceC} setSequence={setSequenceC} toneObject={toneObject} note="C3" />
                 </div>
             </div>
 
@@ -141,26 +256,20 @@ export default function Create({ toneObject, toneTransport, tonePart }) {
             <div className='body'>
                 <h1>Create a New Sample:</h1>
 
-                <SampleTextField setSample={setSample} sample={sample} />
 
                 {/* TextField for Sample Name */}
                 {/* Button for Preview Sample */}
                 {/* Button for Save Sample */}
+                <SampleTextField setSample={setSample} sample={sample} />
 
 
                 {/* Sample Type */}
                 {/* ToggleButton for Sample Type */}
 
                 {/* Sample Tones */}
-                {/* ToggleBuyyon for Sample Tones */}
-                <SampleToneCreator />
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"B3"} previewing={previewing} setPreviewing={setPreviewing} />
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"A3"} previewing={previewing} setPreviewing={setPreviewing} />
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"G3"} previewing={previewing} setPreviewing={setPreviewing} />
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"F3"} previewing={previewing} setPreviewing={setPreviewing} />
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"E3"} previewing={previewing} setPreviewing={setPreviewing} />
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"D3"} previewing={previewing} setPreviewing={setPreviewing} />
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} note={"C3"} previewing={previewing} setPreviewing={setPreviewing} />
+                {/* ToggleButton for Sample Tones */}
+                {/* <SampleToneCreator /> */}
+                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} previewing={previewing} setPreviewing={setPreviewing} />
                 <Preview previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} />
             </div>
         </>

@@ -20,8 +20,12 @@ export const readCache = (key) => {
 
 // Function to validate cache
 export const isValidCache = (data) => {
-    const dataTimestamp = data.timestamp;
-    const currentDateTime = Math.floor(new Date().getTime() / 1000);
-    console.log(`curr: ${currentDateTime}, data: ${dataTimestamp}, ${currentDateTime - dataTimestamp}`)
-    return currentDateTime - dataTimestamp < CACHE_AGE
+    if (data) {
+        const dataTimestamp = data.timestamp;
+        const currentDateTime = Math.floor(new Date().getTime() / 1000);
+        console.log(`curr: ${currentDateTime}, data: ${dataTimestamp}, ${currentDateTime - dataTimestamp}`)
+        return currentDateTime - dataTimestamp < CACHE_AGE
+    }
+    console.log(data)
+    throw new Error('No data to validate');
 }

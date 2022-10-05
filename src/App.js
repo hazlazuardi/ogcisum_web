@@ -22,11 +22,13 @@ export default function App() {
 	// Put all of the functions inside useEffect because we use it once
 	useEffect(() => {
 		const fetchSamples = async () => {
-			const localStorageData = JSON.parse(localStorage.getItem('samples'));
-			if (isValidCache(localStorageData)) {
-				setSamples(localStorageData.samples)
+			const localStorageData = localStorage.getItem('samples');
+			if (localStorageData && isValidCache(localStorageData)) {
+				console.log(localStorageData)
+				setSamples(JSON.parse(localStorageData).samples)
 			} else {
 				const data = await fetchData(READ_URL(999, 'asc'))
+				console.log(data);
 				setSamples(data.samples)
 				localStorage.setItem("samples", JSON.stringify(data))
 				console.log('from api')
@@ -35,6 +37,7 @@ export default function App() {
 		fetchSamples();
 	}, []);
 
+	// console.log(samples[2].recording_data)
 
 
 	return (
