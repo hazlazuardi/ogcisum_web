@@ -86,6 +86,6 @@
     background-color: var(--fgColor);
 }
 
-.shared {
+.in_progress {
     opacity: 0.5;
 }

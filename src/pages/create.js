@@ -220,7 +220,7 @@ function Sequencer({ toneObject, tonePart, setRecordingData }) {
 
 
 
-export default function Create({ toneObject, toneTransport, tonePart }) {
+export default function Create(props) {
 
     const [sample, setSample] = useState({
         'sampleName': "",
@@ -238,10 +238,10 @@ export default function Create({ toneObject, toneTransport, tonePart }) {
         <>
             <div className='body'>
                 <h1>Create a New Sample:</h1>
-                <SampleTextField previewButton={<PreviewButton toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recording_data={recordingData} />
+                <SampleTextField previewButton={<PreviewButton {...props} recording_data={recordingData} />
                 } setSample={setSample} sample={sample} recordingData={recordingData} />
                 <SampleToneCreator />
-                <Sequencer toneObject={toneObject} tonePart={tonePart} setRecordingData={setRecordingData} />
+                <Sequencer {...props} setRecordingData={setRecordingData} />
             </div>
         </>
     )

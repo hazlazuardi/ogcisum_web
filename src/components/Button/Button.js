@@ -5,7 +5,7 @@ export default function Button({ children, variant, disabled, onClick }) {
 
     const buttonVariant = variant => {
         if (variant === 'contained') return styles.contained
-        if (variant === 'shared') return styles.shared
+        if (variant === 'in_progress') return styles.in_progress
     }
 
     return (

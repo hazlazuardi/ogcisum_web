@@ -30,7 +30,9 @@ export default function PreviewButton({ toneObject, toneTransport, tonePart, rec
         }, 16 / 4);
 
 
-        toneObject.start();
+        toneObject.loaded().then(() => {
+            toneObject.start()
+        })
         toneTransport.stop();
 
         if (previewing) {
@@ -45,6 +47,6 @@ export default function PreviewButton({ toneObject, toneTransport, tonePart, rec
 
     }
 
-    return <Button onClick={handleButtonClick} disabled={previewing} >{previewing ? "Stop Previewing" : "Preview"}</Button>;
+    return <Button variant={previewing && 'in_progress'} onClick={handleButtonClick}>{previewing ? "Stop Previewing" : "Preview"}</Button>;
 
 }

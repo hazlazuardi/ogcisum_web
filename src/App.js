@@ -11,7 +11,7 @@ const API_HOST = process.env.REACT_APP_HOST;
 const API_KEY = process.env.REACT_APP_API_KEY;
 const READ_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=samples&limit=${limit}&order=${order}`
 
-export default function App({ toneObject, toneTransport, tonePart }) {
+export default function App(props) {
 
 
 	const [samples, setSamples] = useState([]);
@@ -55,7 +55,7 @@ export default function App({ toneObject, toneTransport, tonePart }) {
 				{/* List of Cards */}
 				<div className='sample_card_list'>
 					{samples?.map(sample => (
-						<SampleCard key={sample.id} {...sample} sampleIDs={sampleIDs} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />
+						<SampleCard key={sample.id} {...sample} sampleIDs={sampleIDs} {...props} />
 					))}
 
 
