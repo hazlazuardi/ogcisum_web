@@ -5,10 +5,10 @@ export default function Button({ children, variant, disabled, onClick }) {
 
     const buttonVariant = variant => {
         if (variant === 'contained') return styles.contained
-
+        if (variant === 'shared') return styles.shared
     }
 
     return (
-        <button type="button" className={`${styles.button} ${buttonVariant(variant)}`} disabled={disabled} onClick={onClick}>{children}</button>
+        <button type="button" className={`${styles.button} ${buttonVariant(variant)}`} onClick={onClick}>{children}</button>
     )
 }

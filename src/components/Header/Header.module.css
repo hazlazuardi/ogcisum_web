@@ -21,7 +21,7 @@
 
 .header_back_button {
     background: none;
-    color: var(--bgColor);
+    color: var(--headerTextColor);
     border: none;
     padding: 0;
     font: inherit;

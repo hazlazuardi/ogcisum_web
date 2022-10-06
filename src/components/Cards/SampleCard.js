@@ -74,7 +74,7 @@ export default function SampleCard({ id, name, datetime, recording_data, toneObj
                     {/* Grid Item 2 */}
                     <div className={styles.sample_card_item_action} >
                         <Link to={`share/${id}`} >
-                            <Button disabled={true}>Share</Button>
+                            <Button variant='shared'>Share</Button>
                         </Link>
                         <PreviewButton previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recording_data={recording_data}>Preview</PreviewButton>
                         <Link to={`edit/${id}`} >

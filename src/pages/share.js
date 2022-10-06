@@ -51,13 +51,13 @@ export default function Share() {
             if (localStorageData && isValidCache(localStorageData)) {
                 const filteredLocalData = localStorageData?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`);
                 setSamplesToLocations(filteredLocalData);
-                console.log('from storage')
+                console.log('from storage', filteredLocalData)
             } else {
                 const data = await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
                 const filteredData = data?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`)
                 setSamplesToLocations(filteredData);
                 localStorage.setItem("samples_to_locations", JSON.stringify(data))
-                console.log('from api loc')
+                console.log('from api loc', filteredData)
             }
         }
         fetchSamplesToLocations()
@@ -115,7 +115,7 @@ export default function Share() {
                 {/* List of Locations */}
                 {/* ToggleButton for Shared or Not Shared Sample */}
                 {!locations ? (<p>Loading...</p>) : locations?.map(location => (
-                    <LocationLists key={location.id} location={location.location} />
+                    <LocationLists key={location.id} id={location.id} location={location.location} samplesToLocations={samplesToLocations} />
                 ))}
             </div>
         </>

@@ -85,3 +85,7 @@
 .toggle_button.active {
     background-color: var(--fgColor);
 }
+
+.shared {
+    opacity: 0.5;
+}
