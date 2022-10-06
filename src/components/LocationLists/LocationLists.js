@@ -32,12 +32,12 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
             setIsShared(locationIDs.includes(locationID))
             console.log('still running')
         }
-    }, [locationID, locationIDs])
+    }, [isLoaded, locationID, locationIDs])
 
     const [isLoadingSharing, setIsLoadingSharing] = useState(false)
     const handleShare = async (samID, locID, relID) => {
 
-        if (!isShared) {
+        if (!isShared && !isLoadingNotSharing && !isLoadingSharing) {
             console.log('click share')
             setIsLoadingSharing(true)
             await fetch(SHARE_URL(samID, locID), {
@@ -65,7 +65,6 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
 
     const [isLoadingNotSharing, setIsLoadingNotSharing] = useState(false)
     const handleNotShare = async (relID, locID) => {
-
         if (isShared) {
             console.log('click unshare')
             setIsLoadingNotSharing(true)
@@ -111,7 +110,7 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
                 <div className={`${styles.item} ${styles.item_action}`}>
                     {/* ToggleButtons */}
                     <ToggleButton variant={!isShared && 'contained'} onClick={() => handleNotShare(relID, locationID)} >{isLoadingNotSharing ? "Not Sharing..." : "Not Shared"}</ToggleButton>
-                    <ToggleButton variant={isShared && 'contained'} onClick={() => handleShare(sampleID, locationID, relID)} >Shared</ToggleButton>
+                    <ToggleButton variant={isShared && 'contained'} onClick={() => handleShare(sampleID, locationID, relID)} >{isLoadingSharing ? "Sharing..." : "Shared"}</ToggleButton>
                 </div>
             </div>
         </>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import ToggleButton from '../Button/ToggleButton'
 import styles from './InstrumentSelector.module.css'
 
@@ -6,7 +6,6 @@ export default function InstrumentSelector(props) {
 
     const { sample, setSample } = props;
     const { sampleType } = sample;
-    const [isSelected, setIsSelected] = useState(false)
     const handleClick = (instrument) => {
         setSample({ ...sample, sampleType: instrument })
     }

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
-import ToggleButton from '../components/Button/ToggleButton';
 import SampleTextField from '../components/Cards/SampleTextField';
 import InstrumentSelector from '../components/InstrumentSelector/InstrumentSelector';
 import { fetchData } from '../helpers/apiCalls';

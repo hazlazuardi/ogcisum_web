@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react'
 import SampleTextField from '../components/Cards/SampleTextField'
 import '../App.css'
 import ToggleButton from '../components/Button/ToggleButton';
-import { synth, guitar, frenchHorn, drums, piano } from "../data/instruments.js";
+import { guitar, frenchHorn, drums, piano } from "../data/instruments.js";
 import InstrumentSelector from '../components/InstrumentSelector/InstrumentSelector';
 import styles from '../components/InstrumentSelector/InstrumentSelector.module.css'
-import Button from '../components/Button/Button';
 import PreviewButton from '../components/Button/PreviewButton';
 
 
@@ -190,12 +189,11 @@ function Sequencer({ sample, toneObject, tonePart, setRecordingData }) {
 
 export default function Create(props) {
 
-    const { tonePart } = props;
 
-    const [instrument, setInstrument] = useState()
-    useEffect(() => {
-        setInstrument(tonePart[sample.sampleType])
-    }, [])
+    // const [instrument, setInstrument] = useState()
+    // useEffect(() => {
+    //     setInstrument(tonePart[sample.sampleType])
+    // }, [])
 
     const [sample, setSample] = useState({
         'sampleName': "",
@@ -215,7 +213,7 @@ export default function Create(props) {
                 <h1>Create a New Sample:</h1>
                 <SampleTextField previewButton={<PreviewButton {...props} type={sample.sampleType} recording_data={recordingData} />
                 } setSample={setSample} sample={sample} recordingData={recordingData} />
-                <InstrumentSelector setInstrument={setInstrument} sample={sample} setSample={setSample} {...props} />
+                <InstrumentSelector sample={sample} setSample={setSample} {...props} />
                 <Sequencer {...props} sample={sample} setRecordingData={setRecordingData} />
             </div>
         </>

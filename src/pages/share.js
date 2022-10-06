@@ -1,7 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
-import Button from '../components/Button/Button'
 import PreviewButton from '../components/Button/PreviewButton'
 import Card from '../components/Cards/Card'
 import styles from '../components/Cards/Card.module.css'
