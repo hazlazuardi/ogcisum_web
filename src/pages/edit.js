@@ -1,61 +1,57 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import SampleTextField from '../Components/Cards/SampleTextField'
 import '../App.css'
-import SampleTextField from '../Components/Cards/SampleTextField';
 import InstrumentSelector from '../Components/Shared/InstrumentSelector';
-import { fetchData } from '../helpers/apiCalls';
-import { isValidCache } from '../helpers/helpers';
-
+import Sequencer from '../Components/Shared/Sequencer';
+import { fetchSample } from '../helpers/apiCalls';
+import { useParams } from 'react-router-dom';
 
 const API_HOST = process.env.REACT_APP_HOST;
 const API_KEY = process.env.REACT_APP_API_KEY;
-const READ_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=samples&limit=${limit}&order=${order}`
+const CREATE_URL = (sampleName, sampleType) => `${API_HOST}?apiKey=${API_KEY}&mode=create&endpoint=samples&sampleType=${sampleType}&sampleName=${sampleName}`
 
+export default function Edit(props) {
 
-export default function Edit() {
+    const { sampleId } = useParams()
 
-    const { sampleId } = useParams();
-    const [sample, setSample] = useState();
-
-    // Put all of the functions inside useEffect because we use it once
+    // Fetch sample data from API
+    const [sample, setSample] = useState({
+        'name': "",
+        'type': ''
+    });
+    const { name, type, recording_data: initialRecordingData } = sample;
     useEffect(() => {
-        const fetchSample = async () => {
-            const localStorageData = JSON.parse(localStorage.getItem('samples'));
-            if (isValidCache(localStorageData)) {
-                setSample(localStorageData.samples.filter(sample => sample.id === `${sampleId}`)[0])
-                console.log('from storage')
-            } else {
-                const data = await fetchData(READ_URL(9999, 'asc'))
-                setSample(localStorageData.samples.filter(sample => sample.id === `${sampleId}`)[0])
-                localStorage.setItem("samples", JSON.stringify(data))
-                console.log('from api')
-            }
-        }
-        fetchSample();
+        fetchSample(setSample, sampleId);
     }, [sampleId]);
 
+    console.log(sample.recording_data && JSON.parse(sample.recording_data))
+    console.log(name)
+
+
+    const [recordingData, setRecordingData] = useState([])
+    useEffect(() => {
+        setRecordingData(sample.recording_data && JSON.parse(sample.recording_data))
+        console.log('setRec')
+    }, [sample.recording_data])
+
+    const handleSubmit = async () => {
+        await fetch(CREATE_URL(sample.name, sample.type), { method: 'POST', body: JSON.stringify(recordingData) })
+            .then(res => res.json())
+            .then(res => console.log(res))
+            .catch(e => console.log(e))
+    }
+
+    console.log('sample', sample)
+    console.log('recordingData', recordingData)
 
     return (
         <>
-            {sample && (
-                <div className='body'>
-                    <h1>Edit This Sample:</h1>
-
-                    {/* TextField for Sample Name */}
-                    {/* Button for Preview Sample */}
-                    {/* Button for Save Sample */}
-                    <SampleTextField sampleName={sample.name} setSample={setSample} sample={sample} />
-
-
-
-                    {/* Sample Type */}
-                    {/* ToggleButton for Sample Type */}
-                    {/* Sample Tones */}
-                    {/* ToggleBuyyon for Sample Tones */}
-                    <InstrumentSelector />
-
-                </div>
-            )}
+            <div className='body'>
+                <h1>Edit this sample: {name}</h1>
+                <SampleTextField {...props} type={type} sample={sample} setSample={setSample} recordingData={recordingData} onSubmit={handleSubmit} />
+                <InstrumentSelector sample={sample} setSample={setSample} {...props} />
+                <Sequencer {...props} sample={sample} setRecordingData={setRecordingData} />
+            </div>
         </>
     )
 }

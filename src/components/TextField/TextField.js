@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from './TextField.module.css'
 
-export default function TextField({ sampleName, setSample }) {
+export default function TextField({ sample, setSample }) {
+    const { name } = sample;
 
     const handleChange = ({ target }) => {
         const { name, value } = target;
@@ -11,14 +12,16 @@ export default function TextField({ sampleName, setSample }) {
         }));
     };
 
+    console.log(name)
+
     return (
         <>
             <form className={styles.text_field_container}>
-                <label htmlFor='sampleName' />
+                <label htmlFor='name' />
                 <input
-                    type='text' id='sampleName' name='sampleName'
+                    type='text' id='name' name='name'
                     className={styles.text_field}
-                    value={sampleName}
+                    value={name}
                     onChange={handleChange} />
             </form>
         </>

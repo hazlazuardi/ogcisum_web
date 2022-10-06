@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Button from './Button';
 
 
-export default function PreviewButton({ toneObject, toneTransport, tonePart, type, recording_data }) {
+export default function PreviewButton({ toneObject, toneTransport, tonePart, type, recordingData }) {
     const [previewing, setPreviewing] = useState();
 
     const [instrument, setInstrument] = useState()
@@ -18,11 +18,11 @@ export default function PreviewButton({ toneObject, toneTransport, tonePart, typ
         instrument.clear();
         toneTransport.cancel();
 
-        recording_data.map(note => {
+        recordingData.map(note => {
             return console.log(note)
         })
 
-        recording_data.map((note) => {
+        recordingData.map((note) => {
             console.log(Object.keys(note)[0], Object.values(note))
             return Object.values(note).forEach((bars) => {
                 bars.forEach((bar, index) => {

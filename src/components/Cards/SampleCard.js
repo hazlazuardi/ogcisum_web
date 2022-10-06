@@ -33,7 +33,7 @@ export default function SampleCard(props) {
                         <Link to={`share/${id}`} >
                             <Button variant={sampleIDs && sampleIDs.includes(id) && 'in_progress'}>{sampleIDs && sampleIDs.includes(id) ? 'Shared' : 'Share'}</Button>
                         </Link>
-                        <PreviewButton {...props} recording_data={JSON.parse(recording_data)}>Preview</PreviewButton>
+                        <PreviewButton {...props} recordingData={JSON.parse(recording_data)}>Preview</PreviewButton>
                         <Link to={`edit/${id}`} >
                             <Button variant='contained' >Edit</Button>
                         </Link>
