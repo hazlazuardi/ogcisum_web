@@ -38,34 +38,34 @@ export default function App({ toneObject, toneTransport, tonePart }) {
 	}, []);
 
 	// console.log(samples[2].recording_data)
-	useEffect(() => {
-		samples.map(sample => {
-			console.log(sample.recording_data)
-		})
-	}, [])
+	// useEffect(() => {
+	// 	samples.map(sample => {
+	// 		console.log(sample.recording_data)
+	// 	})
+	// }, [])
 
-	useEffect(() => {
-		tonePart.clear();
-		toneTransport.cancel();
+	// useEffect(() => {
+	// 	tonePart.clear();
+	// 	toneTransport.cancel();
 
-		samples.map(sample => sample.recording_data.map((note) => {
-			// console.log(Object.keys(note)[0], Object.values(note))
-			Object.values(note).forEach((bars) => {
-				bars.forEach((bar, index) => {
-					if (bar === true) {
-						tonePart.add(index / 4, `${Object.keys(note)[0].toString()}3`)
-					}
-				})
-			})
-		}))
+	// 	samples.map(sample => sample.recording_data.map((note) => {
+	// 		// console.log(Object.keys(note)[0], Object.values(note))
+	// 		Object.values(note).forEach((bars) => {
+	// 			bars.forEach((bar, index) => {
+	// 				if (bar === true) {
+	// 					tonePart.add(index / 4, `${Object.keys(note)[0].toString()}3`)
+	// 				}
+	// 			})
+	// 		})
+	// 	}))
 
-		toneTransport.schedule(time => {
-			// setPreviewing(false);
-			console.log("Preview stopped automatically.");
-		}, 16 / 4);
+	// 	toneTransport.schedule(time => {
+	// 		// setPreviewing(false);
+	// 		console.log("Preview stopped automatically.");
+	// 	}, 16 / 4);
 
 
-	})
+	// })
 
 
 	return (
@@ -76,7 +76,7 @@ export default function App({ toneObject, toneTransport, tonePart }) {
 				{/* List of Cards */}
 				<div className='sample_card_list'>
 					{samples?.map(sample => (
-						<SampleCard key={sample.id} id={sample.id} title={sample.name} createdAt={sample.datetime} />
+						<SampleCard key={sample.id} {...sample} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />
 					))}
 
 
