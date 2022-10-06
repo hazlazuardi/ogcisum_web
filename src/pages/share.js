@@ -49,7 +49,7 @@ export default function Share({ toneObject, toneTransport, tonePart }) {
                             </div>
 
                             <div className={styles.sample_card_item_action} >
-                                <PreviewButton type={sample.type} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recording_data={sample?.recording_data && JSON.parse(sample.recording_data)} />
+                                <PreviewButton type={sample.type} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recordingData={sample?.recording_data && JSON.parse(sample.recording_data)} />
 
                             </div>
                         </div>
