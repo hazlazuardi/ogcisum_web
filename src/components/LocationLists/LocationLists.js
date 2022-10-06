@@ -25,6 +25,7 @@ export default function LocationLists({ locationID, sampleID, locationName, samp
     // console.log('relID', relID)
     // console.log(samplesToLocations.length)
 
+    const [isShared, setIsShared] = useState(locationIDs?.includes(locationID))
     const handleShare = async (samID, locID, relID) => {
         if (!locationIDs?.includes(locID)) {
             await fetch(SHARE_URL(samID, locID), {
@@ -35,7 +36,7 @@ export default function LocationLists({ locationID, sampleID, locationName, samp
                     console.log(res)
                     localStorage.clear()
                     fetchSamplesToLocations(setSamplesToLocations, sampleID)
-                    console.log('locIDs & locID & relID', `${locationIDs} - ${locID} - ${relID}`)
+                    setIsShared(true)
                 })
                 .catch(e => console.log(e))
 
@@ -55,7 +56,7 @@ export default function LocationLists({ locationID, sampleID, locationName, samp
                     console.log(res)
                     localStorage.clear()
                     fetchSamplesToLocations(setSamplesToLocations, sampleID)
-                    console.log('locIDs & locID & relID', `${locationIDs} - ${locID} - ${relID}`)
+                    setIsShared(false)
                 })
                 .catch(e => console.log(e))
         }
@@ -83,8 +84,8 @@ export default function LocationLists({ locationID, sampleID, locationName, samp
                 {/* Item 2 */}
                 <div className={`${styles.item} ${styles.item_action}`}>
                     {/* ToggleButtons */}
-                    <ToggleButton variant={!locationIDs?.includes(locationID) && 'contained'} onClick={() => handleNotShare(relID, locationID)} >Not Shared</ToggleButton>
-                    <ToggleButton variant={locationIDs?.includes(locationID) && 'contained'} onClick={() => handleShare(sampleID, locationID, relID)} >Shared</ToggleButton>
+                    <ToggleButton variant={!isShared && 'contained'} onClick={() => handleNotShare(relID, locationID)} >Not Shared</ToggleButton>
+                    <ToggleButton variant={isShared && 'contained'} onClick={() => handleShare(sampleID, locationID, relID)} >Shared</ToggleButton>
                 </div>
             </div>
         </>
