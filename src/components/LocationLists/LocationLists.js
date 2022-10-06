@@ -36,9 +36,10 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
 
     const [isLoadingSharing, setIsLoadingSharing] = useState(false)
     const handleShare = async (samID, locID, relID) => {
-        console.log('click share')
-        setIsLoadingSharing(true)
+
         if (!isShared) {
+            console.log('click share')
+            setIsLoadingSharing(true)
             await fetch(SHARE_URL(samID, locID), {
                 method: 'POST'
             })
@@ -57,15 +58,17 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
 
         }
         else {
+            console.log('cannot click share')
             return;
         }
     }
 
     const [isLoadingNotSharing, setIsLoadingNotSharing] = useState(false)
     const handleNotShare = async (relID, locID) => {
-        console.log('click unshare')
-        setIsLoadingNotSharing(true)
+
         if (isShared) {
+            console.log('click unshare')
+            setIsLoadingNotSharing(true)
             await fetch(DELETE_URL(relID), {
                 method: 'POST'
             })
@@ -83,6 +86,7 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
                 .catch(e => console.log(e))
         }
         else {
+            console.log('cannot click unshare')
             return;
         }
 
