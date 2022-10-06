@@ -2,21 +2,25 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
 import Button from '../components/Button/Button'
+import PreviewButton from '../components/Button/PreviewButton'
 import Card from '../components/Cards/Card'
 import styles from '../components/Cards/Card.module.css'
 import LocationLists from '../components/LocationLists/LocationLists'
-import { fetchLocations, fetchSamples, fetchSamplesToLocations } from '../helpers/apiCalls'
+import { fetchLocations, fetchSample, fetchSamplesToLocations } from '../helpers/apiCalls'
 
-export default function Share() {
+export default function Share({ toneObject, toneTransport, tonePart }) {
 
     const { sampleId } = useParams()
 
     // Fetch sample data from API
     const [sample, setSample] = useState([]);
     useEffect(() => {
-        fetchSamples(setSample, sampleId);
+        fetchSample(setSample, sampleId);
     }, [sampleId]);
 
+    if (sample.recording_data) {
+        console.log(JSON.parse(sample.recording_data))
+    }
 
     const [samplesToLocations, setSamplesToLocations] = useState([])
     useEffect(() => {
@@ -28,7 +32,7 @@ export default function Share() {
         fetchLocations(setLocations);
     }, []);
 
-    // console.log(locations)
+    // console.log(sample && JSON.parse(sample.recording_data))
 
     return (
         <>
@@ -48,7 +52,7 @@ export default function Share() {
 
                             {/* Grid Item 2 */}
                             <div className={styles.sample_card_item_action} >
-                                <Button>Preview</Button>
+                                <PreviewButton toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recording_data={sample?.recording_data && JSON.parse(sample.recording_data)} />
 
 
                             </div>

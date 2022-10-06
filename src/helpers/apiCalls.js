@@ -43,7 +43,7 @@ const READ_SAMPLES_TO_LOCATIONS_URL = (limit, order) => `${API_HOST}?apiKey=${AP
 const READ_LOCATIONS_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=locations&limit=${limit}&order=${order}`
 const DELETE_SAMPLES_TO_LOCATIONS_URL = (id) => `${API_HOST}?apiKey=${API_KEY}&mode=delete&endpoint=samples_to_locations&id=${id}`
 
-export const fetchSamples = async (setSample, sampleId) => {
+export const fetchSample = async (setSample, sampleId) => {
     const localStorageData = JSON.parse(localStorage.getItem('samples'));
     if (localStorageData && isValidCache(localStorageData)) {
         setSample(localStorageData.samples.filter(sample => sample.id === `${sampleId}`)[0])

@@ -20,7 +20,7 @@ export default function Edit() {
 
     // Put all of the functions inside useEffect because we use it once
     useEffect(() => {
-        const fetchSamples = async () => {
+        const fetchSample = async () => {
             const localStorageData = JSON.parse(localStorage.getItem('samples'));
             if (isValidCache(localStorageData)) {
                 setSample(localStorageData.samples.filter(sample => sample.id === `${sampleId}`)[0])
@@ -32,7 +32,7 @@ export default function Edit() {
                 console.log('from api')
             }
         }
-        fetchSamples();
+        fetchSample();
     }, [sampleId]);
 
 

@@ -77,8 +77,6 @@ export default function LocationLists({ locationID, sampleID, locationName, samp
                 {/* Item 1 */}
                 <div className={styles.item}>
                     <p>{locationName}</p>
-                    <p>{relID}</p>
-
                 </div>
 
                 {/* Item 2 */}
