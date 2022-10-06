@@ -5,9 +5,11 @@ import PreviewButton from '../Button/PreviewButton';
 import Card from './Card'
 import styles from './Card.module.css'
 
-export default function SampleCard({ id, name, datetime, recording_data, toneObject, toneTransport, tonePart }) {
+export default function SampleCard({ id, name, datetime, recording_data, sampleIDs, toneObject, toneTransport, tonePart }) {
 
-
+    console.log(id)
+    console.log(sampleIDs)
+    console.log(sampleIDs.includes(id))
 
 
     useEffect(() => {
@@ -28,7 +30,7 @@ export default function SampleCard({ id, name, datetime, recording_data, toneObj
                     {/* Grid Item 2 */}
                     <div className={styles.sample_card_item_action} >
                         <Link to={`share/${id}`} >
-                            <Button variant='shared'>Share</Button>
+                            <Button variant={sampleIDs.includes(id) && 'shared'}>Share</Button>
                         </Link>
                         <PreviewButton toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recording_data={JSON.parse(recording_data)}>Preview</PreviewButton>
                         <Link to={`edit/${id}`} >

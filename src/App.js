@@ -3,7 +3,7 @@ import Button from './components/Button/Button';
 import SampleCard from './components/Cards/SampleCard';
 import './App.css'
 import Card from './components/Cards/Card';
-import { fetchData } from './helpers/apiCalls';
+import { fetchData, fetchSamplesToLocations } from './helpers/apiCalls';
 import { isValidCache } from './helpers/helpers';
 import { Link } from 'react-router-dom';
 
@@ -14,12 +14,7 @@ const READ_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endp
 export default function App({ toneObject, toneTransport, tonePart }) {
 
 
-	// Fetch all samples from API
 	const [samples, setSamples] = useState([]);
-
-
-
-	// Put all of the functions inside useEffect because we use it once
 	useEffect(() => {
 		const fetchSamples = async () => {
 			const localStorageData = localStorage.getItem('samples');
@@ -37,6 +32,19 @@ export default function App({ toneObject, toneTransport, tonePart }) {
 		fetchSamples();
 	}, []);
 
+	const [samplesToLocations, setSamplesToLocations] = useState([])
+	useEffect(() => {
+		fetchSamplesToLocations(setSamplesToLocations)
+	}, [])
+	console.log(samplesToLocations)
+
+	const [sampleIDs, setSampleIDs] = useState([])
+	useEffect(() => {
+		setSampleIDs(samplesToLocations?.map(location => location.locations_id))
+	}, [samplesToLocations])
+
+	console.log(sampleIDs)
+
 
 
 	return (
@@ -47,7 +55,7 @@ export default function App({ toneObject, toneTransport, tonePart }) {
 				{/* List of Cards */}
 				<div className='sample_card_list'>
 					{samples?.map(sample => (
-						<SampleCard key={sample.id} {...sample} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />
+						<SampleCard key={sample.id} {...sample} sampleIDs={sampleIDs} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />
 					))}
 
 

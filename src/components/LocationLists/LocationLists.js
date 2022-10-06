@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { fetchSamplesToLocations } from '../../helpers/apiCalls';
+import { fetchSharedLocations } from '../../helpers/apiCalls';
 import ToggleButton from '../Button/ToggleButton';
 import styles from './LocationLists.module.css'
 
@@ -10,33 +10,48 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 const SHARE_URL = (sampleID, locationID) => `${API_HOST}?apiKey=${API_KEY}&mode=create&endpoint=samples_to_locations&sampleID=${sampleID}&locationID=${locationID}`
 const DELETE_URL = (relID) => `${API_HOST}?apiKey=${API_KEY}&mode=delete&endpoint=samples_to_locations&id=${relID}`
 
-export default function LocationLists({ locationID, sampleID, locationName, samplesToLocations, setSamplesToLocations }) {
+export default function LocationLists({ locationID, sampleID, locationName, sharedLocations, setSharedLocations, isLoaded, setIsLoaded }) {
 
     const [locationIDs, setLocationIDs] = useState([])
     useEffect(() => {
-        setLocationIDs(samplesToLocations?.map(location => location.locations_id))
-    }, [locationID, samplesToLocations])
+        setLocationIDs(sharedLocations?.map(location => location.locations_id))
+    }, [locationID, sharedLocations])
 
     const [relID, setRelID] = useState();
     useEffect(() => {
-        setRelID(samplesToLocations?.filter(rel => rel.locations_id === locationID).map(rel => rel.id)[0])
-    }, [locationID, samplesToLocations])
+        setRelID(sharedLocations?.filter(rel => rel.locations_id === locationID).map(rel => rel.id)[0])
+    }, [locationID, sharedLocations])
 
+    // console.log(locationIDs)
     // console.log('relID', relID)
-    // console.log(samplesToLocations.length)
+    // console.log(sharedLocations.length)
 
-    const [isShared, setIsShared] = useState(locationIDs?.includes(locationID))
+    const [isShared, setIsShared] = useState(locationIDs.includes(locationID))
+    useEffect(() => {
+        if (locationIDs && locationID && !isLoaded) {
+            setIsShared(locationIDs.includes(locationID))
+            console.log('still running')
+        }
+    }, [locationID, locationIDs])
+
+    const [isLoadingSharing, setIsLoadingSharing] = useState(false)
     const handleShare = async (samID, locID, relID) => {
-        if (!locationIDs?.includes(locID)) {
+        console.log('click share')
+        setIsLoadingSharing(true)
+        if (!isShared) {
             await fetch(SHARE_URL(samID, locID), {
                 method: 'POST'
             })
                 .then(res => res.json())
                 .then(res => {
-                    console.log(res)
-                    localStorage.clear()
-                    fetchSamplesToLocations(setSamplesToLocations, sampleID)
-                    setIsShared(true)
+                    if (res.success) {
+                        console.log(res)
+                        localStorage.clear()
+                        fetchSharedLocations(setSharedLocations, sampleID)
+                        setIsLoaded(true)
+                        setIsLoadingSharing(false)
+                        setIsShared(true)
+                    }
                 })
                 .catch(e => console.log(e))
 
@@ -46,17 +61,24 @@ export default function LocationLists({ locationID, sampleID, locationName, samp
         }
     }
 
+    const [isLoadingNotSharing, setIsLoadingNotSharing] = useState(false)
     const handleNotShare = async (relID, locID) => {
-        if (locationIDs?.includes(locID)) {
+        console.log('click unshare')
+        setIsLoadingNotSharing(true)
+        if (isShared) {
             await fetch(DELETE_URL(relID), {
                 method: 'POST'
             })
                 .then(res => res.json())
                 .then(res => {
-                    console.log(res)
-                    localStorage.clear()
-                    fetchSamplesToLocations(setSamplesToLocations, sampleID)
-                    setIsShared(false)
+                    if (res.success) {
+                        console.log(res)
+                        localStorage.clear()
+                        fetchSharedLocations(setSharedLocations, sampleID)
+                        setIsLoaded(true)
+                        setIsLoadingNotSharing(false)
+                        setIsShared(false)
+                    }
                 })
                 .catch(e => console.log(e))
         }
@@ -67,8 +89,10 @@ export default function LocationLists({ locationID, sampleID, locationName, samp
     }
 
     // console.log(locationIDs)
-    // console.log(locationIDs)
-
+    // console.log(sharedLocations)
+    // console.log(locationID)
+    // console.log(locationIDs.includes(locationID))
+    // console.log(`locID: ${locationID} is Shared: ${isShared}`)
     return (
         <>
             {/* Container */}
@@ -82,7 +106,7 @@ export default function LocationLists({ locationID, sampleID, locationName, samp
                 {/* Item 2 */}
                 <div className={`${styles.item} ${styles.item_action}`}>
                     {/* ToggleButtons */}
-                    <ToggleButton variant={!isShared && 'contained'} onClick={() => handleNotShare(relID, locationID)} >Not Shared</ToggleButton>
+                    <ToggleButton variant={!isShared && 'contained'} onClick={() => handleNotShare(relID, locationID)} >{isLoadingNotSharing ? "Not Sharing..." : "Not Shared"}</ToggleButton>
                     <ToggleButton variant={isShared && 'contained'} onClick={() => handleShare(sampleID, locationID, relID)} >Shared</ToggleButton>
                 </div>
             </div>

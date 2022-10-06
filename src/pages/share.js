@@ -6,7 +6,7 @@ import PreviewButton from '../components/Button/PreviewButton'
 import Card from '../components/Cards/Card'
 import styles from '../components/Cards/Card.module.css'
 import LocationLists from '../components/LocationLists/LocationLists'
-import { fetchLocations, fetchSample, fetchSamplesToLocations } from '../helpers/apiCalls'
+import { fetchLocations, fetchSample, fetchSharedLocations } from '../helpers/apiCalls'
 
 export default function Share({ toneObject, toneTransport, tonePart }) {
 
@@ -22,10 +22,10 @@ export default function Share({ toneObject, toneTransport, tonePart }) {
         console.log(JSON.parse(sample.recording_data))
     }
 
-    const [samplesToLocations, setSamplesToLocations] = useState([])
+    const [sharedLocations, setSharedLocations] = useState([])
     useEffect(() => {
-        fetchSamplesToLocations(setSamplesToLocations, sampleId)
-    }, [samplesToLocations.length, sampleId]);
+        fetchSharedLocations(setSharedLocations, sampleId)
+    }, [sharedLocations.length, sampleId]);
 
     const [locations, setLocations] = useState();
     useEffect(() => {
@@ -34,6 +34,7 @@ export default function Share({ toneObject, toneTransport, tonePart }) {
 
     // console.log(sample && JSON.parse(sample.recording_data))
 
+    const [isLoaded, setIsLoaded] = useState(false)
     return (
         <>
             <div className='body'>
@@ -67,7 +68,7 @@ export default function Share({ toneObject, toneTransport, tonePart }) {
                 {/* List of Locations */}
                 {/* ToggleButton for Shared or Not Shared Sample */}
                 {!locations ? (<p>Loading...</p>) : locations?.map(location => (
-                    <LocationLists key={location.id} locationID={location.id} sampleID={sampleId} locationName={location.location} samplesToLocations={samplesToLocations} setSamplesToLocations={setSamplesToLocations} />
+                    <LocationLists key={location.id} locationID={location.id} sampleID={sampleId} locationName={location.location} sharedLocations={sharedLocations} setSharedLocations={setSharedLocations} isLoaded={isLoaded} setIsLoaded={setIsLoaded} />
                 ))}
             </div>
         </>

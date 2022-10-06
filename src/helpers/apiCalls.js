@@ -61,17 +61,17 @@ export const fetchSample = async (setSample, sampleId) => {
     }
 }
 
-export const fetchSamplesToLocations = async (setSamplesToLocations, sampleId) => {
+export const fetchSharedLocations = async (setSharedLocations, sampleId) => {
     // const localStorageData = JSON.parse(localStorage.getItem('samples_to_locations'));
     // if (localStorageData && isValidCache(localStorageData)) {
     //     const filteredLocalData = localStorageData?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`);
-    //     setSamplesToLocations(filteredLocalData);
+    //     setSharedLocations(filteredLocalData);
     //     // console.log('from storage', filteredLocalData)
     // } else {
     //     await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
     //         .then(res => {
     //             const filteredData = res?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`)
-    //             setSamplesToLocations(filteredData);
+    //             setSharedLocations(filteredData);
     //             localStorage.setItem("samples_to_locations", JSON.stringify(res))
     //         })
     //         .catch(e => {
@@ -81,10 +81,10 @@ export const fetchSamplesToLocations = async (setSamplesToLocations, sampleId) =
     // }
     await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
         .then(res => {
-            const filteredData = res?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`)
-            setSamplesToLocations(filteredData);
-            localStorage.setItem("samples_to_locations", JSON.stringify(res))
-            console.log('fetched')
+            const filteredData = res.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`)
+            setSharedLocations(filteredData);
+            localStorage.setItem("sharedLocations", JSON.stringify(res))
+            console.log('fetched', filteredData)
         })
         .catch(e => {
             console.log(e)
@@ -106,8 +106,15 @@ export const fetchLocations = async (setLocations) => {
     }
 }
 
-export const deleteSamplesToLocations = async () => {
-
+export const fetchSamplesToLocations = async (setSamplesToLocations) => {
+    await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
+        .then(res => {
+            setSamplesToLocations(res?.samples_to_locations);
+            localStorage.setItem("samples_to_locations", JSON.stringify(res))
+            console.log('fetched')
+        })
+        .catch(e => {
+            console.log(e)
+        })
 }
-
 
