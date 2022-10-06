@@ -9,7 +9,7 @@ export default function SampleCard({ id, name, datetime, recording_data, toneObj
     const [previewing, setPreviewing] = useState();
 
 
-    function Preview({ previewing, setPreviewing, toneObject, toneTransport, tonePart, recording_data }) {
+    function PreviewButton({ previewing, setPreviewing, toneObject, toneTransport, tonePart, recording_data }) {
 
         function handleButtonClick() {
 
@@ -76,7 +76,7 @@ export default function SampleCard({ id, name, datetime, recording_data, toneObj
                         <Link to={`share/${id}`} >
                             <Button disabled={true}>Share</Button>
                         </Link>
-                        <Preview previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recording_data={recording_data}>Preview</Preview>
+                        <PreviewButton previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recording_data={recording_data}>Preview</PreviewButton>
                         <Link to={`edit/${id}`} >
                             <Button variant='contained' >Edit</Button>
                         </Link>

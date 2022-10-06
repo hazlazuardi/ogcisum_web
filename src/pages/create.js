@@ -17,7 +17,6 @@ function Bar({ barID, barToggled, handleBarClick }) {
         return "";
     }
 
-    // console.log('id:' + barID + ' sel: ' + barSelected() + ' note: ')
     return (
         <ToggleButton variant={barSelected()} onClick={handleBarClick}>
             {barID}
@@ -42,6 +41,7 @@ function Bars({ sequence, setSequence, toneObject, note }) {
         guitar.triggerAttackRelease(note, "8n", now);
         let filteredSequence = sequence.filter((_bar) => _bar.barID !== bar.barID);
         setSequence([...filteredSequence, { ...bar, barToggled: !bar.barToggled }]);
+        console.log(`bars: ${note}`, sequence)
     }
 
     return sequence.sort(sortSequence).map(bar => <Bar key={bar.barID} {...bar} handleBarClick={() => handleBarClick(bar)} />);
@@ -71,7 +71,7 @@ function Preview({ previewing, setPreviewing, toneObject, toneTransport }) {
 
 }
 
-function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreviewing }) {
+function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreviewing, setRecordingData }) {
 
     const initialSequence = [];
     for (let bar = 1; bar <= 16; bar++) {
@@ -82,55 +82,6 @@ function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreview
         });
     }
 
-    const initialData = [
-        {
-            "B": [
-                true,
-                true,
-                false,
-                false,
-                false,
-                true,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false
-            ]
-        },
-        { "B": [] },
-        { "A": [] },
-        {
-            "G": [
-                true,
-                false,
-                false,
-                false,
-                false,
-                false,
-                true,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false,
-                false
-            ]
-        },
-        { "F": [] },
-        { "E": [] },
-        { "D": [] },
-        { "C": [] },
-    ]
-    const [recordingData, setRecordingData] = useState(initialData)
 
     const [sequenceB, setSequenceB] = useState(initialSequence);
     const [sequenceA, setSequenceA] = useState(initialSequence);
@@ -140,35 +91,22 @@ function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreview
     const [sequenceD, setSequenceD] = useState(initialSequence);
     const [sequenceC, setSequenceC] = useState(initialSequence);
 
-    // useEffect(() => {
-    //     tonePart.clear();
-    //     toneTransport.cancel();
-
-    //     recordingData.map((note) => {
-    //         // console.log(Object.keys(note)[0], Object.values(note))
-    //         Object.values(note).forEach((bars) => {
-    //             bars.forEach((bar, index) => {
-    //                 if (bar === true) {
-    //                     tonePart.add(index / 4, `${Object.keys(note)[0].toString()}3`)
-    //                 }
-    //             })
-    //         })
-    //     })
-
-    //     toneTransport.schedule(time => {
-    //         setPreviewing(false);
-    //         console.log("Preview stopped automatically.");
-    //     }, 16 / 4);
-
-
-    // })
+    // const [recordingData, setRecordingData] = useState([
+    //     { "B": sequenceB },
+    //     { "A": sequenceA },
+    //     { "G": sequenceG },
+    //     { "F": sequenceF },
+    //     { "E": sequenceE },
+    //     { "D": sequenceD },
+    //     { "C": sequenceC },
+    // ])
 
 
     useEffect(() => {
 
         tonePart.clear();
         toneTransport.cancel();
-        
+
         sequenceB.filter(bar => bar.barToggled).forEach(bar => {
             tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
         });
@@ -198,19 +136,22 @@ function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreview
 
     });
 
-    useEffect(() => {
-        setRecordingData([
-            { "B": sequenceB },
-            { "A": sequenceA },
-            { "G": sequenceG },
-            { "F": sequenceF },
-            { "E": sequenceE },
-            { "D": sequenceD },
-            { "C": sequenceC },
-        ])
-    }, [sequenceA, sequenceB, sequenceC, sequenceD, sequenceE, sequenceF, sequenceG])
 
-    console.log('recordingData', recordingData)
+    // Update data everytime sequence changes
+    useEffect(() => {
+        setRecordingData(
+            [
+                { "B": sequenceB.map(bar => bar.barToggled) },
+                { "A": sequenceA.map(bar => bar.barToggled) },
+                { "G": sequenceG.map(bar => bar.barToggled) },
+                { "F": sequenceF.map(bar => bar.barToggled) },
+                { "E": sequenceE.map(bar => bar.barToggled) },
+                { "D": sequenceD.map(bar => bar.barToggled) },
+                { "C": sequenceC.map(bar => bar.barToggled) },
+            ]
+        )
+    }, [sequenceA, sequenceB, sequenceC, sequenceD, sequenceE, sequenceF, sequenceG, setRecordingData])
+
 
     return (
         <>
@@ -309,15 +250,26 @@ function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreview
 export default function Create({ toneObject, toneTransport, tonePart }) {
 
     const [previewing, setPreviewing] = useState();
-    const [sample, setSample] = useState();
+    const [sample, setSample] = useState({
+        'sampleName': "",
+        'sampleType': "guitar",
+
+    });
+
+    const [recordingData, setRecordingData] = useState([])
+
+
+    console.log('sample', sample)
+    console.log('recordingData', recordingData)
+
     return (
         <>
             <div className='body'>
                 <h1>Create a New Sample:</h1>
                 <SampleTextField previewButton={<Preview previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} />
-                } setSample={setSample} sample={sample} />
+                } setSample={setSample} sample={sample} recordingData={recordingData} />
                 <SampleToneCreator />
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} previewing={previewing} setPreviewing={setPreviewing} />
+                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} previewing={previewing} setPreviewing={setPreviewing} setRecordingData={setRecordingData} />
             </div>
         </>
     )

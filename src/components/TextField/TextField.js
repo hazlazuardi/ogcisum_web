@@ -16,7 +16,7 @@ export default function TextField({ sampleName, setSample }) {
             <form className={styles.text_field_container}>
                 <label htmlFor='sampleName' />
                 <input
-                    type='text' id='name' name='name'
+                    type='text' id='sampleName' name='sampleName'
                     className={styles.text_field}
                     value={sampleName}
                     onChange={handleChange} />
