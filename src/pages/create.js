@@ -19,7 +19,7 @@ function Bar({ barID, barToggled, handleBarClick }) {
 
     return (
         <ToggleButton variant={barSelected()} onClick={handleBarClick}>
-            {barID}
+            {/* {barID} */}
         </ToggleButton>
     );
 }

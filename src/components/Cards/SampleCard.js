@@ -22,7 +22,7 @@ export default function SampleCard({ id, name, datetime, recording_data, toneObj
 
             JSON.parse(recording_data).map((note) => {
                 console.log(Object.keys(note)[0], Object.values(note))
-                Object.values(note).forEach((bars) => {
+                return Object.values(note).forEach((bars) => {
                     bars.forEach((bar, index) => {
                         if (bar === true) {
                             tonePart.add(index / 4, `${Object.keys(note)[0].toString()}3`)
