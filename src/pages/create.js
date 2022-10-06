@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import SampleTextField from '../components/Cards/SampleTextField'
 import '../App.css'
 import ToggleButton from '../components/Button/ToggleButton';
-import { synth, guitar } from "../data/instruments.js";
-import SampleToneCreator from '../components/SampleToneCreator/SampleToneCreator';
-import styles from '../components/SampleToneCreator/SampleToneCreator.module.css'
+import { synth, guitar, frenchHorn, drums, piano } from "../data/instruments.js";
+import InstrumentSelector from '../components/InstrumentSelector/InstrumentSelector';
+import styles from '../components/InstrumentSelector/InstrumentSelector.module.css'
 import Button from '../components/Button/Button';
 import PreviewButton from '../components/Button/PreviewButton';
 
@@ -25,7 +25,14 @@ function Bar({ barID, barToggled, handleBarClick }) {
     );
 }
 
-function Bars({ sequence, setSequence, toneObject, note }) {
+function Bars({ sequence, sample, setSequence, toneObject, note }) {
+
+    const instruments = {
+        'guitar': guitar,
+        'french_horn': frenchHorn,
+        'drums': drums,
+        'piano': piano
+    }
 
     function sortSequence(bar, otherBar) {
         if (bar.barID < otherBar.barID) {
@@ -39,7 +46,7 @@ function Bars({ sequence, setSequence, toneObject, note }) {
 
     function handleBarClick(bar) {
         const now = toneObject.now();
-        guitar.triggerAttackRelease(note, "8n", now);
+        instruments[sample.sampleType].triggerAttackRelease(note, "8n", now);
         let filteredSequence = sequence.filter((_bar) => _bar.barID !== bar.barID);
         setSequence([...filteredSequence, { ...bar, barToggled: !bar.barToggled }]);
         console.log(`bars: ${note}`, sequence)
@@ -50,7 +57,7 @@ function Bars({ sequence, setSequence, toneObject, note }) {
 }
 
 
-function Sequencer({ toneObject, tonePart, setRecordingData }) {
+function Sequencer({ sample, toneObject, tonePart, setRecordingData }) {
 
     const initialSequence = [];
     for (let bar = 1; bar <= 16; bar++) {
@@ -69,45 +76,6 @@ function Sequencer({ toneObject, tonePart, setRecordingData }) {
     const [sequenceE, setSequenceE] = useState(initialSequence);
     const [sequenceD, setSequenceD] = useState(initialSequence);
     const [sequenceC, setSequenceC] = useState(initialSequence);
-
-    // const [recordingData, setRecordingData] = useState([
-    //     { "B": sequenceB },
-    //     { "A": sequenceA },
-    //     { "G": sequenceG },
-    //     { "F": sequenceF },
-    //     { "E": sequenceE },
-    //     { "D": sequenceD },
-    //     { "C": sequenceC },
-    // ])
-
-
-    // useEffect(() => {
-
-
-    //     sequenceB.filter(bar => bar.barToggled).forEach(bar => {
-    //         tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
-    //     });
-    //     sequenceA.filter(bar => bar.barToggled).forEach(bar => {
-    //         tonePart.add((bar.barID - 1) / 4, "A3"); // Plays an C note on 3rd octave 0.25s apart
-    //     });
-    //     sequenceG.filter(bar => bar.barToggled).forEach(bar => {
-    //         tonePart.add((bar.barID - 1) / 4, "G3"); // Plays an C note on 3rd octave 0.25s apart
-    //     });
-    //     sequenceF.filter(bar => bar.barToggled).forEach(bar => {
-    //         tonePart.add((bar.barID - 1) / 4, "F3"); // Plays an C note on 3rd octave 0.25s apart
-    //     });
-    //     sequenceE.filter(bar => bar.barToggled).forEach(bar => {
-    //         tonePart.add((bar.barID - 1) / 4, "E3"); // Plays an C note on 3rd octave 0.25s apart
-    //     });
-    //     sequenceD.filter(bar => bar.barToggled).forEach(bar => {
-    //         tonePart.add((bar.barID - 1) / 4, "D3"); // Plays an C note on 3rd octave 0.25s apart
-    //     });
-    //     sequenceC.filter(bar => bar.barToggled).forEach(bar => {
-    //         tonePart.add((bar.barID - 1) / 4, "C3"); // Plays an C note on 3rd octave 0.25s apart
-    //     });
-
-
-    // });
 
 
     // Update data everytime sequence changes
@@ -138,7 +106,7 @@ function Sequencer({ toneObject, tonePart, setRecordingData }) {
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sequence={sequenceB} setSequence={setSequenceB} toneObject={toneObject} note={"B3"} />
+                    <Bars sample={sample} sequence={sequenceB} setSequence={setSequenceB} toneObject={toneObject} note={"B3"} />
                 </div>
             </div>
             <div key={"A3"} className={styles.type_container}>
@@ -150,7 +118,7 @@ function Sequencer({ toneObject, tonePart, setRecordingData }) {
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sequence={sequenceA} setSequence={setSequenceA} toneObject={toneObject} note="A3" />
+                    <Bars sample={sample} sequence={sequenceA} setSequence={setSequenceA} toneObject={toneObject} note="A3" />
                 </div>
             </div>
             <div key={"G3"} className={styles.type_container}>
@@ -162,7 +130,7 @@ function Sequencer({ toneObject, tonePart, setRecordingData }) {
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sequence={sequenceG} setSequence={setSequenceG} toneObject={toneObject} note="G3" />
+                    <Bars sample={sample} sequence={sequenceG} setSequence={setSequenceG} toneObject={toneObject} note="G3" />
                 </div>
             </div>
             <div key={"F3"} className={styles.type_container}>
@@ -174,7 +142,7 @@ function Sequencer({ toneObject, tonePart, setRecordingData }) {
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sequence={sequenceF} setSequence={setSequenceF} toneObject={toneObject} note="F3" />
+                    <Bars sample={sample} sequence={sequenceF} setSequence={setSequenceF} toneObject={toneObject} note="F3" />
                 </div>
             </div>
             <div key={"E3"} className={styles.type_container}>
@@ -186,7 +154,7 @@ function Sequencer({ toneObject, tonePart, setRecordingData }) {
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sequence={sequenceE} setSequence={setSequenceE} toneObject={toneObject} note="E3" />
+                    <Bars sample={sample} sequence={sequenceE} setSequence={setSequenceE} toneObject={toneObject} note="E3" />
                 </div>
             </div>
             <div key={"D3"} className={styles.type_container}>
@@ -198,7 +166,7 @@ function Sequencer({ toneObject, tonePart, setRecordingData }) {
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sequence={sequenceD} setSequence={setSequenceD} toneObject={toneObject} note="D3" />
+                    <Bars sample={sample} sequence={sequenceD} setSequence={setSequenceD} toneObject={toneObject} note="D3" />
                 </div>
             </div>
             <div key={"C3"} className={styles.type_container}>
@@ -210,7 +178,7 @@ function Sequencer({ toneObject, tonePart, setRecordingData }) {
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sequence={sequenceC} setSequence={setSequenceC} toneObject={toneObject} note="C3" />
+                    <Bars sample={sample} sequence={sequenceC} setSequence={setSequenceC} toneObject={toneObject} note="C3" />
                 </div>
             </div>
         </>
@@ -221,6 +189,13 @@ function Sequencer({ toneObject, tonePart, setRecordingData }) {
 
 
 export default function Create(props) {
+
+    const { tonePart } = props;
+
+    const [instrument, setInstrument] = useState()
+    useEffect(() => {
+        setInstrument(tonePart[sample.sampleType])
+    }, [])
 
     const [sample, setSample] = useState({
         'sampleName': "",
@@ -238,10 +213,10 @@ export default function Create(props) {
         <>
             <div className='body'>
                 <h1>Create a New Sample:</h1>
-                <SampleTextField previewButton={<PreviewButton {...props} recording_data={recordingData} />
+                <SampleTextField previewButton={<PreviewButton {...props} type={sample.sampleType} recording_data={recordingData} />
                 } setSample={setSample} sample={sample} recordingData={recordingData} />
-                <SampleToneCreator />
-                <Sequencer {...props} setRecordingData={setRecordingData} />
+                <InstrumentSelector setInstrument={setInstrument} sample={sample} setSample={setSample} {...props} />
+                <Sequencer {...props} sample={sample} setRecordingData={setRecordingData} />
             </div>
         </>
     )

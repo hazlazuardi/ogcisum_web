@@ -1,8 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ToggleButton from '../Button/ToggleButton'
-import styles from './SampleToneCreator.module.css'
+import styles from './InstrumentSelector.module.css'
 
-export default function SampleToneCreator() {
+export default function InstrumentSelector(props) {
+
+    const { sample, setSample } = props;
+    const { sampleType } = sample;
+    const [isSelected, setIsSelected] = useState(false)
+    const handleClick = (instrument) => {
+        setSample({ ...sample, sampleType: instrument })
+    }
+
     return (
         <>
             {/* Container */}
@@ -15,10 +23,10 @@ export default function SampleToneCreator() {
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <ToggleButton>Piano</ToggleButton>
-                    <ToggleButton>French Horn</ToggleButton>
-                    <ToggleButton variant={'contained'} >Guitar</ToggleButton>
-                    <ToggleButton>Drums</ToggleButton>
+                    <ToggleButton onClick={() => handleClick('piano')} variant={sampleType === 'piano' && 'contained'}>Piano</ToggleButton>
+                    <ToggleButton onClick={() => handleClick('french_horn')} variant={sampleType === 'french_horn' && 'contained'}>French Horn</ToggleButton>
+                    <ToggleButton onClick={() => handleClick('guitar')} variant={sampleType === 'guitar' && 'contained'} >Guitar</ToggleButton>
+                    <ToggleButton onClick={() => handleClick('drums')} variant={sampleType === 'drums' && 'contained'}>Drums</ToggleButton>
                 </div>
             </div>
 

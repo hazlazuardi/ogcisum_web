@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import '../App.css'
 import ToggleButton from '../components/Button/ToggleButton';
 import SampleTextField from '../components/Cards/SampleTextField';
-import SampleToneCreator from '../components/SampleToneCreator/SampleToneCreator';
+import InstrumentSelector from '../components/InstrumentSelector/InstrumentSelector';
 import { fetchData } from '../helpers/apiCalls';
 import { isValidCache } from '../helpers/helpers';
 
@@ -53,7 +53,7 @@ export default function Edit() {
                     {/* ToggleButton for Sample Type */}
                     {/* Sample Tones */}
                     {/* ToggleBuyyon for Sample Tones */}
-                    <SampleToneCreator />
+                    <InstrumentSelector />
 
                 </div>
             )}

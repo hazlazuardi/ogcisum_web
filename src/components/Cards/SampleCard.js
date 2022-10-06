@@ -7,7 +7,7 @@ import styles from './Card.module.css'
 
 export default function SampleCard(props) {
 
-    const { id, name, datetime, recording_data, sampleIDs } = props;
+    const { id, name, type, datetime, recording_data, sampleIDs } = props;
     // console.log(id)
     // console.log(sampleIDs)
     // console.log(sampleIDs.includes(id))
@@ -24,7 +24,7 @@ export default function SampleCard(props) {
 
                     {/* Grid Item 1 */}
                     <div>
-                        <h3>{name}</h3>
+                        <h3>{name} ({type})</h3>
                         <p className={styles.sample_card_createdAt} >{datetime}</p>
                     </div>
 
