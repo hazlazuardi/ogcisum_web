@@ -6,10 +6,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100vw;
 }
 
 .header_logo {
     color: var(--headerTextColor);
+    cursor: pointer;
+    outline: inherit;
+    text-decoration: none;
 }
 
 .header_logo_container {
@@ -36,4 +42,18 @@
     padding: 1rem;
     color: var(--headerTextColor);
     text-align: end;
+}
+
+.content {
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 1rem;
+    width: 100vw;
+    background: rgb(45, 61, 232);
+    background: linear-gradient(180deg, rgba(45, 61, 232, 1) 0%, rgba(128, 0, 128, 1) 11%);
 }

@@ -7,7 +7,7 @@ export default function PreviewButton({ toneObject, toneTransport, tonePart, typ
 
     const [instrument, setInstrument] = useState()
 
-    console.log(instrument)
+    // console.log(instrument)
 
     useEffect(() => {
         setInstrument(tonePart[type])

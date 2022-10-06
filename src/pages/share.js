@@ -24,7 +24,7 @@ export default function Share({ toneObject, toneTransport, tonePart }) {
     const [sharedLocations, setSharedLocations] = useState([])
     useEffect(() => {
         fetchSharedLocations(setSharedLocations, sampleId)
-    }, [sharedLocations.length, sampleId]);
+    }, [sharedLocations?.length, sampleId]);
 
     const [locations, setLocations] = useState();
     useEffect(() => {

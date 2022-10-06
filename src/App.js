@@ -23,7 +23,6 @@ export default function App(props) {
 				setSamples(JSON.parse(localStorageData).samples)
 			} else {
 				const data = await fetchData(READ_URL(999, 'asc'))
-				console.log(data);
 				setSamples(data.samples)
 				localStorage.setItem("samples", JSON.stringify(data))
 				console.log('from api')
@@ -36,14 +35,15 @@ export default function App(props) {
 	useEffect(() => {
 		fetchSamplesToLocations(setSamplesToLocations)
 	}, [])
-	console.log(samplesToLocations)
+	console.log('samplesToLocations', samplesToLocations)
 
 	const [sampleIDs, setSampleIDs] = useState([])
 	useEffect(() => {
-		setSampleIDs(samplesToLocations?.map(location => location.locations_id))
+		setSampleIDs(samplesToLocations?.map(location => location.samples_id))
+		localStorage.setItem("relIDs", samplesToLocations?.map(location => location.id))
 	}, [samplesToLocations])
 
-	console.log(sampleIDs)
+	console.log('sampleIDs', sampleIDs)
 
 
 

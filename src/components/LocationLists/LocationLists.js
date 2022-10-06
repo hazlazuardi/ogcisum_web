@@ -26,7 +26,7 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
     // console.log('relID', relID)
     // console.log(sharedLocations.length)
 
-    const [isShared, setIsShared] = useState(locationIDs.includes(locationID))
+    const [isShared, setIsShared] = useState(locationIDs?.includes(locationID))
     useEffect(() => {
         if (locationIDs && locationID && !isLoaded) {
             setIsShared(locationIDs.includes(locationID))

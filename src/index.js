@@ -14,13 +14,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<App toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />} />
-        <Route path="/create" element={<Create toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />} />
-        <Route path="/share/:sampleId" element={<Share toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />} />
-        <Route path="/edit/:sampleId" element={<Edit />} />
-      </Routes>
+      <Header>
+        <Routes>
+          <Route path="/" element={<App toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />} />
+          <Route path="/create" element={<Create toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />} />
+          <Route path="/share/:sampleId" element={<Share toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} />} />
+          <Route path="/edit/:sampleId" element={<Edit />} />
+        </Routes>
+      </Header>
     </BrowserRouter>
   </React.StrictMode>
 );

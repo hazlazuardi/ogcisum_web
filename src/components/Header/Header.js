@@ -1,14 +1,10 @@
 import React from 'react'
-import { Link, useLocation, useMatch } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import styles from './Header.module.css'
 
-export default function Header() {
+export default function Header({ children }) {
   const currentUrl = useLocation();
   const isChildPage = currentUrl.pathname !== '/'
-
-  const handleBack = (e) => {
-    e.preventDefault();
-  }
 
 
   return (
@@ -22,10 +18,16 @@ export default function Header() {
               <button className={styles.header_back_button}>←</button>
             </Link>
           )}
-          <h1 className={styles.header_logo}>Ogcisum</h1>
+          <Link to={'/'} className={styles.header_logo}>
+            <h1 >Ogcisum</h1>
+          </Link>
         </ div>
         <p className={styles.header_tagline} >Create & Share Samples, Listen in Mobile App!</p>
       </div>
+      <div className={styles.content}>
+        {children}
+      </div>
+      <div className={styles.footer}></div>
     </>
   )
 }

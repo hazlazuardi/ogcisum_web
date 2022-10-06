@@ -31,7 +31,7 @@ export default function SampleCard(props) {
                     {/* Grid Item 2 */}
                     <div className={styles.sample_card_item_action} >
                         <Link to={`share/${id}`} >
-                            <Button variant={sampleIDs.includes(id) && 'in_progress'}>Share</Button>
+                            <Button variant={sampleIDs && sampleIDs.includes(id) && 'in_progress'}>{sampleIDs && sampleIDs.includes(id) ? 'Shared' : 'Share'}</Button>
                         </Link>
                         <PreviewButton {...props} recording_data={JSON.parse(recording_data)}>Preview</PreviewButton>
                         <Link to={`edit/${id}`} >
