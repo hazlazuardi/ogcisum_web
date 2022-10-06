@@ -50,25 +50,27 @@ export default function App(props) {
 	return (
 		<>
 			<div className='body'>
-				<h1>Samples You've Created</h1>
+				<>
+					<h1>Samples You've Created</h1>
 
-				{/* List of Cards */}
-				<div className='sample_card_list'>
-					{samples?.map(sample => (
-						<SampleCard key={sample.id} {...sample} sampleIDs={sampleIDs} {...props} />
-					))}
+					{/* List of Cards */}
+					<div className='sample_card_list'>
+						{samples?.map(sample => (
+							<SampleCard key={sample.id} {...sample} sampleIDs={sampleIDs} {...props} />
+						))}
 
 
 
-					{/* Create Sample Button */}
-					<Card>
-						<div className={`create_sample_card`}>
-							<Link to={'/create'}>
-								<Button variant='contained'>Create Sample</Button>
-							</Link>
-						</div>
-					</Card>
-				</div>
+						{/* Create Sample Button */}
+						<Card>
+							<div className={`create_sample_card`}>
+								<Link to={'/create'}>
+									<Button variant='contained'>Create Sample</Button>
+								</Link>
+							</div>
+						</Card>
+					</div>
+				</>
 			</div>
 		</>
 	)

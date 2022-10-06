@@ -49,6 +49,8 @@ html {
 .body {
   padding: 1em;
   font-family: var(--bodyFontFamily);
+  max-width: calc(1067pt - 2em);
+  margin: 0 auto;
 }
 
 .sample_card_list {

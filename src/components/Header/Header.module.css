@@ -1,14 +1,19 @@
 @import '../../App.css';
 
 .header_container {
-    background: rgb(45, 61, 232);
-    background: linear-gradient(0deg, rgba(45, 61, 232, 1) 0%, rgba(164, 45, 232, 1) 100%);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1067pt;
+    margin: 0 auto;
+}
+
+.header_background {
+    background: rgb(45, 61, 232);
+    background: linear-gradient(0deg, rgba(45, 61, 232, 1) 0%, rgba(164, 45, 232, 1) 100%);
     position: fixed;
     top: 0;
-    width: 100vw;
+    width: 100%;
 }
 
 .header_logo {
