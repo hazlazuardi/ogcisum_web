@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
-import PreviewButton from '../components/Button/PreviewButton'
-import Card from '../components/Cards/Card'
-import styles from '../components/Cards/Card.module.css'
-import LocationLists from '../components/LocationLists/LocationLists'
+import PreviewButton from '../Components/Button/PreviewButton'
+import Card from '../Components/Cards/Card'
+import styles from '../Components/Cards/Card.module.css'
+import LocationLists from '../Components/Share/LocationLists'
 import { fetchLocations, fetchSample, fetchSharedLocations } from '../helpers/apiCalls'
 
 export default function Share({ toneObject, toneTransport, tonePart }) {
@@ -39,33 +39,23 @@ export default function Share({ toneObject, toneTransport, tonePart }) {
             <div className='body'>
                 <h1>Share This Sample: {sampleId}</h1>
 
-                {/* Card */}
                 {sample && (
                     <Card>
                         <div className={styles.sample_card_container}>
 
-                            {/* Grid Item 1 */}
                             <div className={styles.sample_card_item_text}>
                                 <h3>{sample.name}</h3>
                                 <p>{sample.datetime}</p>
                             </div>
 
-                            {/* Grid Item 2 */}
                             <div className={styles.sample_card_item_action} >
                                 <PreviewButton type={sample.type} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recording_data={sample?.recording_data && JSON.parse(sample.recording_data)} />
-
 
                             </div>
                         </div>
 
                     </Card>
                 )}
-                {/* Sample Name */}
-                {/* Sample CreatedAt */}
-                {/* Button for Preview Sample */}
-
-                {/* List of Locations */}
-                {/* ToggleButton for Shared or Not Shared Sample */}
                 {!locations ? (<p>Loading...</p>) : locations?.map(location => (
                     <LocationLists key={location.id} locationID={location.id} sampleID={sampleId} locationName={location.location} sharedLocations={sharedLocations} setSharedLocations={setSharedLocations} isLoaded={isLoaded} setIsLoaded={setIsLoaded} />
                 ))}

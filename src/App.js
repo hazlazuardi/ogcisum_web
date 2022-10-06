@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Button from './components/Button/Button';
-import SampleCard from './components/Cards/SampleCard';
+import Button from './Components/Button/Button';
+import SampleCard from './Components/Cards/SampleCard';
 import './App.css'
-import Card from './components/Cards/Card';
+import Card from './Components/Cards/Card';
 import { fetchData, fetchSamplesToLocations } from './helpers/apiCalls';
 import { isValidCache } from './helpers/helpers';
 import { Link } from 'react-router-dom';

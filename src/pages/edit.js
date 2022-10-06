@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
-import SampleTextField from '../components/Cards/SampleTextField';
-import InstrumentSelector from '../components/InstrumentSelector/InstrumentSelector';
+import SampleTextField from '../Components/Cards/SampleTextField';
+import InstrumentSelector from '../Components/Shared/InstrumentSelector';
 import { fetchData } from '../helpers/apiCalls';
 import { isValidCache } from '../helpers/helpers';
 
