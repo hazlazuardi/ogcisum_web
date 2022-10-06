@@ -6,6 +6,7 @@ import { synth, guitar } from "../data/instruments.js";
 import SampleToneCreator from '../components/SampleToneCreator/SampleToneCreator';
 import styles from '../components/SampleToneCreator/SampleToneCreator.module.css'
 import Button from '../components/Button/Button';
+import PreviewButton from '../components/Button/PreviewButton';
 
 
 function Bar({ barID, barToggled, handleBarClick }) {
@@ -48,30 +49,8 @@ function Bars({ sequence, setSequence, toneObject, note }) {
 
 }
 
-function Preview({ previewing, setPreviewing, toneObject, toneTransport }) {
 
-    function handleButtonClick() {
-
-        toneObject.start();
-        toneTransport.stop();
-
-        if (previewing) {
-            setPreviewing(false);
-            console.log("Preview stopped manually.");
-        }
-        else {
-            setPreviewing(true);
-            console.log("Preview started.");
-            toneTransport.start();
-        }
-
-    }
-
-    return <Button onClick={handleButtonClick} disabled={previewing} >{previewing ? "Stop Previewing" : "Preview"}</Button>;
-
-}
-
-function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreviewing, setRecordingData }) {
+function Sequencer({ toneObject, tonePart, setRecordingData }) {
 
     const initialSequence = [];
     for (let bar = 1; bar <= 16; bar++) {
@@ -102,39 +81,33 @@ function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreview
     // ])
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        tonePart.clear();
-        toneTransport.cancel();
 
-        sequenceB.filter(bar => bar.barToggled).forEach(bar => {
-            tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
-        });
-        sequenceA.filter(bar => bar.barToggled).forEach(bar => {
-            tonePart.add((bar.barID - 1) / 4, "A3"); // Plays an C note on 3rd octave 0.25s apart
-        });
-        sequenceG.filter(bar => bar.barToggled).forEach(bar => {
-            tonePart.add((bar.barID - 1) / 4, "G3"); // Plays an C note on 3rd octave 0.25s apart
-        });
-        sequenceF.filter(bar => bar.barToggled).forEach(bar => {
-            tonePart.add((bar.barID - 1) / 4, "F3"); // Plays an C note on 3rd octave 0.25s apart
-        });
-        sequenceE.filter(bar => bar.barToggled).forEach(bar => {
-            tonePart.add((bar.barID - 1) / 4, "E3"); // Plays an C note on 3rd octave 0.25s apart
-        });
-        sequenceD.filter(bar => bar.barToggled).forEach(bar => {
-            tonePart.add((bar.barID - 1) / 4, "D3"); // Plays an C note on 3rd octave 0.25s apart
-        });
-        sequenceC.filter(bar => bar.barToggled).forEach(bar => {
-            tonePart.add((bar.barID - 1) / 4, "C3"); // Plays an C note on 3rd octave 0.25s apart
-        });
+    //     sequenceB.filter(bar => bar.barToggled).forEach(bar => {
+    //         tonePart.add((bar.barID - 1) / 4, "B3"); // Plays an C note on 3rd octave 0.25s apart
+    //     });
+    //     sequenceA.filter(bar => bar.barToggled).forEach(bar => {
+    //         tonePart.add((bar.barID - 1) / 4, "A3"); // Plays an C note on 3rd octave 0.25s apart
+    //     });
+    //     sequenceG.filter(bar => bar.barToggled).forEach(bar => {
+    //         tonePart.add((bar.barID - 1) / 4, "G3"); // Plays an C note on 3rd octave 0.25s apart
+    //     });
+    //     sequenceF.filter(bar => bar.barToggled).forEach(bar => {
+    //         tonePart.add((bar.barID - 1) / 4, "F3"); // Plays an C note on 3rd octave 0.25s apart
+    //     });
+    //     sequenceE.filter(bar => bar.barToggled).forEach(bar => {
+    //         tonePart.add((bar.barID - 1) / 4, "E3"); // Plays an C note on 3rd octave 0.25s apart
+    //     });
+    //     sequenceD.filter(bar => bar.barToggled).forEach(bar => {
+    //         tonePart.add((bar.barID - 1) / 4, "D3"); // Plays an C note on 3rd octave 0.25s apart
+    //     });
+    //     sequenceC.filter(bar => bar.barToggled).forEach(bar => {
+    //         tonePart.add((bar.barID - 1) / 4, "C3"); // Plays an C note on 3rd octave 0.25s apart
+    //     });
 
-        toneTransport.schedule(time => {
-            setPreviewing(false);
-            console.log("Preview stopped automatically.");
-        }, 16 / 4);
 
-    });
+    // });
 
 
     // Update data everytime sequence changes
@@ -249,7 +222,6 @@ function Sequencer({ toneObject, toneTransport, tonePart, previewing, setPreview
 
 export default function Create({ toneObject, toneTransport, tonePart }) {
 
-    const [previewing, setPreviewing] = useState();
     const [sample, setSample] = useState({
         'sampleName': "",
         'sampleType': "guitar",
@@ -266,10 +238,10 @@ export default function Create({ toneObject, toneTransport, tonePart }) {
         <>
             <div className='body'>
                 <h1>Create a New Sample:</h1>
-                <SampleTextField previewButton={<Preview previewing={previewing} setPreviewing={setPreviewing} toneObject={toneObject} toneTransport={toneTransport} />
+                <SampleTextField previewButton={<PreviewButton toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recording_data={recordingData} />
                 } setSample={setSample} sample={sample} recordingData={recordingData} />
                 <SampleToneCreator />
-                <Sequencer toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} previewing={previewing} setPreviewing={setPreviewing} setRecordingData={setRecordingData} />
+                <Sequencer toneObject={toneObject} tonePart={tonePart} setRecordingData={setRecordingData} />
             </div>
         </>
     )
