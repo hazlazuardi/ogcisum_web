@@ -1,5 +1,5 @@
 import React from 'react'
-import ToggleButton from '../Button/ToggleButton'
+import ToggleButton from '../Shared/ToggleButton'
 import styles from './InstrumentSelector.module.css'
 
 export default function InstrumentSelector(props) {
@@ -17,7 +17,7 @@ export default function InstrumentSelector(props) {
 
                 {/* Item 1 */}
                 <div className={styles.type_item_text}>
-                    <p>Type</p>
+                    <p className={`${styles.list_text}`} >Type</p>
                 </div>
 
                 {/* Item 2 */}

@@ -23,7 +23,7 @@ export const isValidCache = (data) => {
     if (data) {
         const dataTimestamp = data.timestamp;
         const currentDateTime = Math.floor(new Date().getTime() / 1000);
-        console.log(`curr: ${currentDateTime}, data: ${dataTimestamp}, ${currentDateTime - dataTimestamp}`)
+        // console.log(`curr: ${currentDateTime}, data: ${dataTimestamp}, ${currentDateTime - dataTimestamp}`)
         return currentDateTime - dataTimestamp < CACHE_AGE
     }
     // console.log(data)

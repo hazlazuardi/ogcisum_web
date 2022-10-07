@@ -1,7 +1,7 @@
 import React from 'react'
-import ToggleButton from '../Button/ToggleButton';
+import ToggleButton from '../Shared/ToggleButton';
 
-export default function Bar({ barID, barToggled, handleBarClick }) {
+export default function Bar({ barToggled, handleBarClick }) {
 
     function barSelected() {
         if (barToggled) {

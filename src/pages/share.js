@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import '../App.css'
-import PreviewButton from '../Components/Button/PreviewButton'
+import PreviewButton from '../Components/Shared/PreviewButton'
 import Card from '../Components/Cards/Card'
 import styles from '../Components/Cards/Card.module.css'
 import LocationLists from '../Components/Share/LocationLists'

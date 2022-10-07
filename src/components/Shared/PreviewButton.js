@@ -12,18 +12,18 @@ export default function PreviewButton({ toneObject, toneTransport, tonePart, typ
         setInstrument(tonePart[type])
     }, [tonePart, type])
 
-    console.log(instrument)
+    // console.log(instrument)
 
     function handleButtonClick() {
         instrument.clear();
         toneTransport.cancel();
 
-        recordingData.map(note => {
-            return console.log(note)
-        })
+        // recordingData.map(note => {
+        //     return console.log(note)
+        // })
 
         recordingData.map((note) => {
-            console.log(Object.keys(note)[0], Object.values(note))
+            // console.log(Object.keys(note)[0], Object.values(note))
             return Object.values(note).forEach((bars) => {
                 bars.forEach((bar, index) => {
                     if (bar === true) {

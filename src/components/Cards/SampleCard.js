@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import Button from '../Button/Button'
-import PreviewButton from '../Button/PreviewButton';
+import Button from '../Shared/Button'
+import PreviewButton from '../Shared/PreviewButton';
 import Card from './Card'
 import styles from './Card.module.css'
 

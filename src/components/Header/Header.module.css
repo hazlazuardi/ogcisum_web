@@ -17,12 +17,17 @@
     z-index: 10000;
 }
 
+.header_link {
+    cursor: pointer;
+    outline: inherit;
+    text-decoration: none;
+}
+
 .header_logo {
     color: var(--headerTextColor);
     cursor: pointer;
     outline: inherit;
     text-decoration: none;
-    font-size: medium;
 }
 
 .header_logo_container {

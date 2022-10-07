@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { fetchSharedLocations } from '../../helpers/apiCalls';
-import ToggleButton from '../Button/ToggleButton';
+import { UNSHARE_URL, SHARE_URL } from '../../helpers/constants';
+import ToggleButton from '../Shared/ToggleButton';
 import styles from './LocationLists.module.css'
-
-
-
-const API_HOST = process.env.REACT_APP_HOST;
-const API_KEY = process.env.REACT_APP_API_KEY;
-const SHARE_URL = (sampleID, locationID) => `${API_HOST}?apiKey=${API_KEY}&mode=create&endpoint=samples_to_locations&sampleID=${sampleID}&locationID=${locationID}`
-const DELETE_URL = (relID) => `${API_HOST}?apiKey=${API_KEY}&mode=delete&endpoint=samples_to_locations&id=${relID}`
 
 export default function LocationLists({ locationID, sampleID, locationName, sharedLocations, setSharedLocations, isLoaded, setIsLoaded }) {
 
@@ -68,7 +62,7 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
         if (isShared) {
             console.log('click unshare')
             setIsLoadingNotSharing(true)
-            await fetch(DELETE_URL(relID), {
+            await fetch(UNSHARE_URL(relID), {
                 method: 'POST'
             })
                 .then(res => res.json())

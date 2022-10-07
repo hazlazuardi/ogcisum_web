@@ -4,7 +4,7 @@ import '../App.css'
 import InstrumentSelector from '../Components/Shared/InstrumentSelector';
 import Sequencer from '../Components/Shared/Sequencer';
 import { fetchSample } from '../helpers/apiCalls';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const API_HOST = process.env.REACT_APP_HOST;
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -24,8 +24,8 @@ export default function Edit(props) {
         fetchSample(setSample, sampleId);
     }, [sampleId]);
 
-    console.log(initialRecordingData && JSON.parse(initialRecordingData))
-    console.log(name)
+    // console.log(initialRecordingData && JSON.parse(initialRecordingData))
+    // console.log(name)
 
 
     const [recordingData, setRecordingData] = useState([])
@@ -34,15 +34,20 @@ export default function Edit(props) {
         console.log('setRec')
     }, [initialRecordingData])
 
+
+    const navigate = useNavigate()
     const handleSubmit = async () => {
         await fetch(UPDATE_URL(sampleId, name, type), { method: 'POST', body: JSON.stringify(recordingData) })
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res);
+                navigate('/');
+            })
             .catch(e => console.log(e))
     }
 
-    console.log('sample', sample)
-    console.log('recordingData', recordingData)
+    // console.log('sample', sample)
+    // console.log('recordingData', recordingData)
 
     return (
         <>

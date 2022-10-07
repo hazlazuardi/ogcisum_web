@@ -3,6 +3,7 @@ import SampleTextField from '../Components/Cards/SampleTextField'
 import '../App.css'
 import InstrumentSelector from '../Components/Shared/InstrumentSelector';
 import Sequencer from '../Components/Shared/Sequencer';
+import { useNavigate } from 'react-router-dom';
 
 const API_HOST = process.env.REACT_APP_HOST;
 const API_KEY = process.env.REACT_APP_API_KEY;
@@ -23,10 +24,14 @@ export default function Create(props) {
     console.log('sample', sample)
     console.log('recordingData', recordingData)
 
+    const navigate = useNavigate();
     const handleSubmit = async () => {
         await fetch(CREATE_URL(sample.name, sample.type), { method: 'POST', body: JSON.stringify(recordingData) })
             .then(res => res.json())
-            .then(res => console.log(res))
+            .then(res => {
+                console.log(res)
+                navigate('/')
+            })
             .catch(e => console.log(e))
     }
 

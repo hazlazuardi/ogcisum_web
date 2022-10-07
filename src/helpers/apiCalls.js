@@ -1,5 +1,6 @@
 import { addTimestamp } from "./helpers";
 import { isValidCache } from '../helpers/helpers'
+import { READ_LOCATIONS_URL, READ_SAMPLES_TO_LOCATIONS_URL, READ_SAMPLES_URL } from "./constants";
 
 
 
@@ -36,11 +37,20 @@ export const postData = async (url, body) => {
         });
 }
 
-const API_HOST = process.env.REACT_APP_HOST;
-const API_KEY = process.env.REACT_APP_API_KEY;
-const READ_SAMPLES_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=samples&limit=${limit}&order=${order}`
-const READ_SAMPLES_TO_LOCATIONS_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=samples_to_locations&limit=${limit}&order=${order}`
-const READ_LOCATIONS_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=locations&limit=${limit}&order=${order}`
+export const fetchSamples = async (setSamples) => {
+    const localStorageData = localStorage.getItem('samples');
+    if (localStorageData && isValidCache(localStorageData)) {
+        console.log(localStorageData)
+        setSamples(JSON.parse(localStorageData).samples)
+    } else {
+        const data = await fetchData(READ_SAMPLES_URL(999, 'asc'))
+        setSamples(data.samples)
+        localStorage.setItem("samples", JSON.stringify(data))
+        // console.log('from api')
+    }
+}
+
+
 
 export const fetchSample = async (setSample, sampleId) => {
     const localStorageData = JSON.parse(localStorage.getItem('samples'));

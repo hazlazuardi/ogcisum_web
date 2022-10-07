@@ -38,7 +38,7 @@ h4 {
 
 p {
   font-family: var(--bodyFontFamily);
-  color: var(--headerTextColor);
+  color: var(--fgColor);
 }
 
 html {
