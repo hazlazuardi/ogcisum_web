@@ -7,19 +7,15 @@ import styles from '../Components/Cards/Card.module.css'
 import LocationLists from '../Components/Share/LocationLists'
 import { fetchLocations, fetchSample, fetchSharedLocations } from '../helpers/apiCalls'
 
-export default function Share({ toneObject, toneTransport, tonePart }) {
+export default function Share(props) {
 
     const { sampleId } = useParams()
 
     // Fetch sample data from API
-    const [sample, setSample] = useState([]);
+    const [sample, setSample] = useState();
     useEffect(() => {
         fetchSample(setSample, sampleId);
     }, [sampleId]);
-
-    if (sample.recording_data) {
-        console.log(JSON.parse(sample.recording_data))
-    }
 
     const [sharedLocations, setSharedLocations] = useState([])
     useEffect(() => {
@@ -32,6 +28,7 @@ export default function Share({ toneObject, toneTransport, tonePart }) {
     }, []);
 
     // console.log(sample && JSON.parse(sample.recording_data))
+    console.log(sample)
 
     const [isLoaded, setIsLoaded] = useState(false)
     return (
@@ -49,8 +46,7 @@ export default function Share({ toneObject, toneTransport, tonePart }) {
                             </div>
 
                             <div className={styles.sample_card_item_action} >
-                                <PreviewButton type={sample.type} toneObject={toneObject} toneTransport={toneTransport} tonePart={tonePart} recordingData={sample?.recording_data && JSON.parse(sample.recording_data)} />
-
+                                <PreviewButton {...props} {...sample}>Preview</PreviewButton>
                             </div>
                         </div>
 

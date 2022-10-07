@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './TextField.module.css'
 
-export default function TextField({ sample, setSample }) {
-    const { name } = sample;
+export default function TextField(props) {
+    const { name, setSample } = props
 
     const handleChange = ({ target }) => {
         const { name, value } = target;

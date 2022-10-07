@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Button from './Button';
 
 
-export default function PreviewButton({ toneObject, toneTransport, tonePart, type, recordingData }) {
+export default function PreviewButton(props) {
+    const { toneObject, toneTransport, tonePart, type, recording_data } = props;
+
+    console.log(props)
     const [previewing, setPreviewing] = useState();
 
     const [instrument, setInstrument] = useState(tonePart['guitar'])
@@ -14,16 +17,12 @@ export default function PreviewButton({ toneObject, toneTransport, tonePart, typ
 
     // console.log(instrument)
 
+    const recordingData = recording_data && JSON.parse(recording_data);
     function handleButtonClick() {
         instrument.clear();
         toneTransport.cancel();
 
-        // recordingData.map(note => {
-        //     return console.log(note)
-        // })
-
-        recordingData.map((note) => {
-            // console.log(Object.keys(note)[0], Object.values(note))
+        recordingData?.map((note) => {
             return Object.values(note).forEach((bars) => {
                 bars.forEach((bar, index) => {
                     if (bar === true) {

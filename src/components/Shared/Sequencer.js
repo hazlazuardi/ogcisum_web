@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react'
 import styles from '../Shared/InstrumentSelector.module.css'
 import Bars from './Bars';
 
-export default function Sequencer({ isEdit, sample, toneObject, recordingData, setRecordingData }) {
+export default function Sequencer(props) {
+
+    const { isEdit, type, toneObject, recordingData, recording_data, setRecordingData } = props
+
+    console.log(props)
 
     const initialSequence = [];
     for (let bar = 1; bar <= 16; bar++) {
@@ -12,6 +16,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
             //barToggled: bar % 2 == 1 ? true : false, // Pre-fill every second bar for testing
         });
     }
+
 
     // console.log(sample?.recording_data && JSON.parse(sample?.recording_data))
     // console.log(recordingData?.filter(note => Object.keys(note)[0] === 'B').map(note => Object.values(note)))
@@ -79,7 +84,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
     }, [sequenceA, sequenceB, sequenceC, sequenceD, sequenceE, sequenceF, sequenceG, setRecordingData])
 
 
-    if (!sample.recording_data && !recordingData && isEdit) return (<p>Loading..</p>)
+    if (!recording_data && !recordingData && isEdit) return (<p>Loading..</p>)
 
     return (
         <>
@@ -93,7 +98,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sample={sample} sequence={sequenceB} setSequence={setSequenceB} toneObject={toneObject} note={"B3"} />
+                    <Bars type={type} sequence={sequenceB} setSequence={setSequenceB} toneObject={toneObject} note={"B3"} />
                 </div>
             </div>
             <div key={"A3"} className={styles.type_container}>
@@ -105,7 +110,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sample={sample} sequence={sequenceA} setSequence={setSequenceA} toneObject={toneObject} note="A3" />
+                    <Bars type={type} sequence={sequenceA} setSequence={setSequenceA} toneObject={toneObject} note="A3" />
                 </div>
             </div>
             <div key={"G3"} className={styles.type_container}>
@@ -117,7 +122,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sample={sample} sequence={sequenceG} setSequence={setSequenceG} toneObject={toneObject} note="G3" />
+                    <Bars type={type} sequence={sequenceG} setSequence={setSequenceG} toneObject={toneObject} note="G3" />
                 </div>
             </div>
             <div key={"F3"} className={styles.type_container}>
@@ -129,7 +134,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sample={sample} sequence={sequenceF} setSequence={setSequenceF} toneObject={toneObject} note="F3" />
+                    <Bars type={type} sequence={sequenceF} setSequence={setSequenceF} toneObject={toneObject} note="F3" />
                 </div>
             </div>
             <div key={"E3"} className={styles.type_container}>
@@ -141,7 +146,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sample={sample} sequence={sequenceE} setSequence={setSequenceE} toneObject={toneObject} note="E3" />
+                    <Bars type={type} sequence={sequenceE} setSequence={setSequenceE} toneObject={toneObject} note="E3" />
                 </div>
             </div>
             <div key={"D3"} className={styles.type_container}>
@@ -153,7 +158,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sample={sample} sequence={sequenceD} setSequence={setSequenceD} toneObject={toneObject} note="D3" />
+                    <Bars type={type} sequence={sequenceD} setSequence={setSequenceD} toneObject={toneObject} note="D3" />
                 </div>
             </div>
             <div key={"C3"} className={styles.type_container}>
@@ -165,7 +170,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 2 */}
                 <div className={styles.type_item_action}>
-                    <Bars sample={sample} sequence={sequenceC} setSequence={setSequenceC} toneObject={toneObject} note="C3" />
+                    <Bars type={type} sequence={sequenceC} setSequence={setSequenceC} toneObject={toneObject} note="C3" />
                 </div>
             </div>
         </>

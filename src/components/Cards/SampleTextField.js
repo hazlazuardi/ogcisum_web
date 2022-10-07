@@ -9,12 +9,12 @@ import styles from './Card.module.css'
 export default function SampleTextField(props) {
     const { onSubmit } = props
 
+    console.log(props)
+
 
 
     return (
         <>
-
-            {/* Input Sample Name */}
             <Card>
                 <div className={styles.sample_text_field_container}>
                     <div className={styles.text_field}>

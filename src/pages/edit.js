@@ -15,23 +15,20 @@ export default function Edit(props) {
     const { sampleId } = useParams()
 
     // Fetch sample data from API
-    const [sample, setSample] = useState({
-        name: "",
-        type: ""
-    });
-    const { name, type, recording_data: initialRecordingData } = sample;
+    const [sample, setSample] = useState({});
     useEffect(() => {
         fetchSample(setSample, sampleId);
     }, [sampleId]);
 
+    console.log(sample)
     // console.log(initialRecordingData && JSON.parse(initialRecordingData))
     // console.log(name)
 
 
-    const [recordingData, setRecordingData] = useState([])
+    const { name, type, recording_data: initialRecordingData } = sample;
+    const [recordingData, setRecordingData] = useState(initialRecordingData && JSON.parse(initialRecordingData))
     useEffect(() => {
         setRecordingData(initialRecordingData && JSON.parse(initialRecordingData))
-        console.log('setRec')
     }, [initialRecordingData])
 
 
@@ -51,12 +48,14 @@ export default function Edit(props) {
 
     return (
         <>
-            <div className='body'>
-                <h1>Editing This Sample: </h1>
-                <SampleTextField {...props} type={type} sample={sample} setSample={setSample} recordingData={recordingData} onSubmit={handleSubmit} />
-                <InstrumentSelector sample={sample} setSample={setSample} {...props} />
-                <Sequencer {...props} isEdit sample={sample} recordingData={recordingData} setRecordingData={setRecordingData} />
-            </div>
+            {sample && (
+                <div className='body'>
+                    <h1>Editing This Sample: </h1>
+                    <SampleTextField {...props} {...sample} recording_data={JSON.stringify(recordingData)} setSample={setSample} onSubmit={handleSubmit} />
+                    <InstrumentSelector sample={sample} setSample={setSample} {...props} />
+                    <Sequencer {...props} {...sample} isEdit recordingData={recordingData} setRecordingData={setRecordingData} />
+                </div>
+            )}
         </>
     )
 }

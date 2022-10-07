@@ -7,15 +7,12 @@ import styles from './Card.module.css'
 
 export default function SampleCard(props) {
 
-    const { id, name, datetime, recording_data, sampleIDs } = props;
+    const { id, name, datetime, sampleIDs } = props;
     // console.log(id)
     // console.log(sampleIDs)
     // console.log(sampleIDs.includes(id))
 
-
-    useEffect(() => {
-        // console.log(JSON.parse(recording_data))
-    }, [])
+    const isShared = sampleIDs && sampleIDs.includes(id)
     return (
         <>
             {/* Grid Container */}
@@ -31,9 +28,9 @@ export default function SampleCard(props) {
                     {/* Grid Item 2 */}
                     <div className={styles.sample_card_item_action} >
                         <Link to={`share/${id}`} >
-                            <Button variant={sampleIDs && sampleIDs.includes(id) && 'in_progress'}>{sampleIDs && sampleIDs.includes(id) ? 'Shared' : 'Share'}</Button>
+                            <Button variant={isShared && 'in_progress'}>{isShared ? 'Shared' : 'Share'}</Button>
                         </Link>
-                        <PreviewButton {...props} recordingData={JSON.parse(recording_data)}>Preview</PreviewButton>
+                        <PreviewButton {...props}>Preview</PreviewButton>
                         <Link to={`edit/${id}`} >
                             <Button variant='contained' >Edit</Button>
                         </Link>

@@ -45,7 +45,7 @@ export default function App(props) {
 					))}
 
 					<Card>
-						<div className={`create_sample_card`}>
+						<div className='create_sample_card'>
 							<Link to={'/create'}>
 								<Button variant='contained'>Create Sample</Button>
 							</Link>
