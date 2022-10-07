@@ -16,9 +16,9 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
         setRelID(sharedLocations?.filter(rel => rel.locations_id === locationID).map(rel => rel.id)[0])
     }, [locationID, sharedLocations])
 
-    // console.log(locationIDs)
-    // console.log('relID', relID)
-    // console.log(sharedLocations.length)
+    
+    
+    
 
     const [isShared, setIsShared] = useState(locationIDs?.includes(locationID))
     useEffect(() => {
@@ -85,11 +85,11 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
 
     }
 
-    // console.log(locationIDs)
-    // console.log(sharedLocations)
-    // console.log(locationID)
-    // console.log(locationIDs.includes(locationID))
-    // console.log(`locID: ${locationID} is Shared: ${isShared}`)
+    
+    
+    
+    
+    
     return (
         <>
             {/* Container */}

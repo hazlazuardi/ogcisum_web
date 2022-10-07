@@ -9,7 +9,7 @@ export const fetchData = async (url) => {
         .then(res => res.json())
         .then(res => {
             const dataWithTimestamp = addTimestamp(res)
-            // console.log('fetchData', dataWithTimestamp)
+            
             return dataWithTimestamp;
         })
         .catch(error => {
@@ -27,7 +27,7 @@ export const postData = async (url, body) => {
         .then(res => res.json())
         .then(res => {
             const dataWithTimestamp = addTimestamp(res)
-            // console.log('fetchData', dataWithTimestamp)
+            
             return dataWithTimestamp;
         })
         .catch(error => {
@@ -46,7 +46,7 @@ export const fetchSamples = async (setSamples) => {
         const data = await fetchData(READ_SAMPLES_URL(999, 'asc'))
         setSamples(data.samples)
         localStorage.setItem("samples", JSON.stringify(data))
-        // console.log('from api')
+        
     }
 }
 
@@ -75,7 +75,7 @@ export const fetchSharedLocations = async (setSharedLocations, sampleId) => {
     // if (localStorageData && isValidCache(localStorageData)) {
     //     const filteredLocalData = localStorageData?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`);
     //     setSharedLocations(filteredLocalData);
-    //     // console.log('from storage', filteredLocalData)
+    //     
     // } else {
     //     await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
     //         .then(res => {
@@ -86,7 +86,7 @@ export const fetchSharedLocations = async (setSharedLocations, sampleId) => {
     //         .catch(e => {
     //             console.log(e)
     //         })
-    //     // console.log('from api loc', filteredData)
+    //     
     // }
     await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
         .then(res => {
@@ -98,7 +98,7 @@ export const fetchSharedLocations = async (setSharedLocations, sampleId) => {
         .catch(e => {
             console.log(e)
         })
-    // console.log('from api loc', filteredData)
+    
 
 }
 
@@ -106,12 +106,12 @@ export const fetchLocations = async (setLocations) => {
     const localStorageData = JSON.parse(localStorage.getItem('locations'));
     if (localStorageData && isValidCache(localStorageData)) {
         setLocations(localStorageData.locations);
-        // console.log('from storage')
+        
     } else {
         const data = await fetchData(READ_LOCATIONS_URL(9999, 'asc'))
         setLocations(data.locations);
         localStorage.setItem("locations", JSON.stringify(data))
-        // console.log('from api loc')
+        
     }
 }
 

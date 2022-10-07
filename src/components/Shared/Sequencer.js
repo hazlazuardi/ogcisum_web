@@ -18,9 +18,9 @@ export default function Sequencer(props) {
     }
 
 
-    // console.log(sample?.recording_data && JSON.parse(sample?.recording_data))
-    // console.log(recordingData?.filter(note => Object.keys(note)[0] === 'B').map(note => Object.values(note)))
-    // console.log(recordingData && initialSequence.map(bar => ({
+    
+    
+    
     //     ...bar,
     //     barToggled: recordingData?.filter(note => Object.keys(note)[0] === 'C').map(note => Object.values(note)[0][bar.barID - 1])[0],
     // })))

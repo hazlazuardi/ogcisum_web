@@ -15,7 +15,7 @@ export default function PreviewButton(props) {
         setInstrument(tonePart[type])
     }, [tonePart, type])
 
-    // console.log(instrument)
+    
 
     const recordingData = recording_data && JSON.parse(recording_data);
     function handleButtonClick() {

@@ -18,9 +18,9 @@ export default function Edit(props) {
         fetchSample(setSample, sampleId);
     }, [sampleId]);
 
-    // console.log(sample)
-    // console.log(initialRecordingData && JSON.parse(initialRecordingData))
-    // console.log(name)
+    
+    
+    
 
 
     const { name, type, recording_data: initialRecordingData } = sample;

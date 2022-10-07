@@ -27,7 +27,7 @@ export default function Share(props) {
         fetchLocations(setLocations);
     }, []);
 
-    // console.log(sample && JSON.parse(sample.recording_data))
+    
     console.log(sample)
 
     const [isLoaded, setIsLoaded] = useState(false)

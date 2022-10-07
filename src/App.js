@@ -21,7 +21,7 @@ export default function App(props) {
 	useEffect(() => {
 		fetchSamplesToLocations(setSamplesToLocations)
 	}, [])
-	// console.log('samplesToLocations', samplesToLocations)
+	
 
 	const [sampleIDs, setSampleIDs] = useState([])
 	useEffect(() => {
@@ -29,7 +29,7 @@ export default function App(props) {
 		localStorage.setItem("relIDs", samplesToLocations?.map(location => location.id))
 	}, [samplesToLocations])
 
-	// console.log('sampleIDs', sampleIDs)
+	
 
 
 

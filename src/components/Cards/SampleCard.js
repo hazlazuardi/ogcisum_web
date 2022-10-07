@@ -1,19 +1,28 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Link } from 'react-router-dom';
 import Button from '../Shared/Button'
 import PreviewButton from '../Shared/PreviewButton';
 import Card from './Card'
 import styles from './Card.module.css'
 
+/**
+ * Represents a SampleCard for List of Samples
+ * @param {Object} props - All props to pass
+ */
 export default function SampleCard(props) {
 
     const { id, name, datetime, sampleIDs } = props;
-    // console.log(id)
-    // console.log(sampleIDs)
-    // console.log(sampleIDs.includes(id))
 
-    const readableDateTime = new Date(datetime)
-    console.log(readableDateTime.getDay())
+
+    const formatDateTime = (datetime) => {
+        const datetimeObj = new Date(datetime);
+        const time = datetimeObj.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }).split(" ").join("").toLowerCase()
+        const date = datetimeObj.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }).replace(',', '').split(" ")
+        return time + ' on ' + date[1] + ' ' + date[0] + ' ' + date[2]
+    }
+
+
+    const readableDatetime = useMemo(() => formatDateTime(datetime), [datetime])
 
     const isShared = sampleIDs && sampleIDs.includes(id)
     return (
@@ -25,7 +34,7 @@ export default function SampleCard(props) {
                     {/* Grid Item 1 */}
                     <div>
                         <h3>{name}</h3>
-                        <p className={styles.sample_card_createdAt} >{datetime}</p>
+                        <p className={styles.sample_card_createdAt} >{readableDatetime}</p>
                     </div>
 
                     {/* Grid Item 2 */}

@@ -9,7 +9,7 @@ export const addTimestamp = (data) => {
         ...data,
         'timestamp': Math.floor(currentDate / 1000)
     }
-    // console.log('addTimestamp: ', result)
+    
     return result
 }
 
@@ -23,9 +23,9 @@ export const isValidCache = (data) => {
     if (data) {
         const dataTimestamp = data.timestamp;
         const currentDateTime = Math.floor(new Date().getTime() / 1000);
-        // console.log(`curr: ${currentDateTime}, data: ${dataTimestamp}, ${currentDateTime - dataTimestamp}`)
+        
         return currentDateTime - dataTimestamp < CACHE_AGE
     }
-    // console.log(data)
+    
     throw new Error('No data to validate');
 }
