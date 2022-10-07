@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from '../Shared/InstrumentSelector.module.css'
 import Bars from './Bars';
 
-export default function Sequencer({ sample, toneObject, setRecordingData }) {
+export default function Sequencer({ isEdit, sample, toneObject, recordingData, setRecordingData }) {
 
     const initialSequence = [];
     for (let bar = 1; bar <= 16; bar++) {
@@ -13,8 +13,14 @@ export default function Sequencer({ sample, toneObject, setRecordingData }) {
         });
     }
 
+    // console.log(sample?.recording_data && JSON.parse(sample?.recording_data))
+    // console.log(recordingData?.filter(note => Object.keys(note)[0] === 'B').map(note => Object.values(note)))
+    // console.log(recordingData && initialSequence.map(bar => ({
+    //     ...bar,
+    //     barToggled: recordingData?.filter(note => Object.keys(note)[0] === 'C').map(note => Object.values(note)[0][bar.barID - 1])[0],
+    // })))
 
-    const [sequenceB, setSequenceB] = useState(initialSequence);
+    const [sequenceB, setSequenceB] = useState(initialSequence)
     const [sequenceA, setSequenceA] = useState(initialSequence);
     const [sequenceG, setSequenceG] = useState(initialSequence);
     const [sequenceF, setSequenceF] = useState(initialSequence);
@@ -22,6 +28,40 @@ export default function Sequencer({ sample, toneObject, setRecordingData }) {
     const [sequenceD, setSequenceD] = useState(initialSequence);
     const [sequenceC, setSequenceC] = useState(initialSequence);
 
+    useEffect(() => {
+        if (isEdit && recordingData) {
+            setSequenceB(initialSequence.map(bar => ({
+                ...bar,
+                barToggled: recordingData?.filter(note => Object.keys(note)[0] === 'B').map(note => Object.values(note)[0][bar.barID - 1])[0],
+            })))
+            setSequenceA(initialSequence.map(bar => ({
+                ...bar,
+                barToggled: recordingData?.filter(note => Object.keys(note)[0] === 'A').map(note => Object.values(note)[0][bar.barID - 1])[0],
+            })))
+            setSequenceG(initialSequence.map(bar => ({
+                ...bar,
+                barToggled: recordingData?.filter(note => Object.keys(note)[0] === 'G').map(note => Object.values(note)[0][bar.barID - 1])[0],
+            })))
+            setSequenceF(initialSequence.map(bar => ({
+                ...bar,
+                barToggled: recordingData?.filter(note => Object.keys(note)[0] === 'F').map(note => Object.values(note)[0][bar.barID - 1])[0],
+            })))
+            setSequenceE(initialSequence.map(bar => ({
+                ...bar,
+                barToggled: recordingData?.filter(note => Object.keys(note)[0] === 'E').map(note => Object.values(note)[0][bar.barID - 1])[0],
+            })))
+            setSequenceD(initialSequence.map(bar => ({
+                ...bar,
+                barToggled: recordingData?.filter(note => Object.keys(note)[0] === 'D').map(note => Object.values(note)[0][bar.barID - 1])[0],
+            })))
+            setSequenceC(initialSequence.map(bar => ({
+                ...bar,
+                barToggled: recordingData?.filter(note => Object.keys(note)[0] === 'C').map(note => Object.values(note)[0][bar.barID - 1])[0],
+            })))
+
+        }
+
+    }, [JSON.stringify(recordingData), isEdit])
 
     // Update data everytime sequence changes
     useEffect(() => {
@@ -38,6 +78,8 @@ export default function Sequencer({ sample, toneObject, setRecordingData }) {
         )
     }, [sequenceA, sequenceB, sequenceC, sequenceD, sequenceE, sequenceF, sequenceG, setRecordingData])
 
+
+    if (!sample.recording_data && !recordingData && isEdit) return (<p>Loading..</p>)
 
     return (
         <>
@@ -128,6 +170,5 @@ export default function Sequencer({ sample, toneObject, setRecordingData }) {
             </div>
         </>
     );
-
 }
 

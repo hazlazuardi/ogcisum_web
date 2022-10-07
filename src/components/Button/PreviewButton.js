@@ -5,16 +5,16 @@ import Button from './Button';
 export default function PreviewButton({ toneObject, toneTransport, tonePart, type, recordingData }) {
     const [previewing, setPreviewing] = useState();
 
-    const [instrument, setInstrument] = useState()
+    const [instrument, setInstrument] = useState(tonePart['guitar'])
 
-    // console.log(instrument)
 
     useEffect(() => {
         setInstrument(tonePart[type])
     }, [tonePart, type])
 
-    function handleButtonClick() {
+    console.log(instrument)
 
+    function handleButtonClick() {
         instrument.clear();
         toneTransport.cancel();
 

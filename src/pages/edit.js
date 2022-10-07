@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 
 const API_HOST = process.env.REACT_APP_HOST;
 const API_KEY = process.env.REACT_APP_API_KEY;
-const CREATE_URL = (sampleName, sampleType) => `${API_HOST}?apiKey=${API_KEY}&mode=create&endpoint=samples&sampleType=${sampleType}&sampleName=${sampleName}`
+const UPDATE_URL = (id, sampleName, sampleType) => `${API_HOST}?apiKey=${API_KEY}&mode=update&endpoint=samples&sampleType=${sampleType}&sampleName=${sampleName}&id=${id}`
 
 export default function Edit(props) {
 
@@ -16,8 +16,8 @@ export default function Edit(props) {
 
     // Fetch sample data from API
     const [sample, setSample] = useState({
-        'name': "",
-        'type': ''
+        name: "",
+        type: ""
     });
     const { name, type, recording_data: initialRecordingData } = sample;
     useEffect(() => {
@@ -35,7 +35,7 @@ export default function Edit(props) {
     }, [sample.recording_data])
 
     const handleSubmit = async () => {
-        await fetch(CREATE_URL(sample.name, sample.type), { method: 'POST', body: JSON.stringify(recordingData) })
+        await fetch(UPDATE_URL(sampleId, sample.name, sample.type), { method: 'POST', body: JSON.stringify(recordingData) })
             .then(res => res.json())
             .then(res => console.log(res))
             .catch(e => console.log(e))
@@ -50,7 +50,7 @@ export default function Edit(props) {
                 <h1>Edit this sample: {name}</h1>
                 <SampleTextField {...props} type={type} sample={sample} setSample={setSample} recordingData={recordingData} onSubmit={handleSubmit} />
                 <InstrumentSelector sample={sample} setSample={setSample} {...props} />
-                <Sequencer {...props} sample={sample} setRecordingData={setRecordingData} />
+                <Sequencer {...props} isEdit sample={sample} recordingData={recordingData} setRecordingData={setRecordingData} />
             </div>
         </>
     )

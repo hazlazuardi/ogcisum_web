@@ -24,7 +24,7 @@ export default function Bars({ sequence, sample, setSequence, toneObject, note }
 
     function handleBarClick(bar) {
         const now = toneObject.now();
-        instruments[sample.sampleType].triggerAttackRelease(note, "8n", now);
+        instruments[sample.type].triggerAttackRelease(note, "8n", now);
         let filteredSequence = sequence.filter((_bar) => _bar.barID !== bar.barID);
         setSequence([...filteredSequence, { ...bar, barToggled: !bar.barToggled }]);
         console.log(`bars: ${note}`, sequence)

@@ -34,7 +34,7 @@ export default function Create(props) {
         <>
             <div className='body'>
                 <h1>Create a New Sample:</h1>
-                <SampleTextField {...props} type={sample.sampleType} sample={sample} setSample={setSample} recordingData={recordingData} onSubmit={handleSubmit} />
+                <SampleTextField {...props} type={sample.type} sample={sample} setSample={setSample} recordingData={recordingData} onSubmit={handleSubmit} />
                 <InstrumentSelector sample={sample} setSample={setSample} {...props} />
                 <Sequencer {...props} sample={sample} setRecordingData={setRecordingData} />
             </div>
