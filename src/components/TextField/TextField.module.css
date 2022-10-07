@@ -12,6 +12,7 @@
     padding: 0.5rem 1rem;
     color: var(--fgColor);
     border-radius: 1rem;
+    border: 0;
     font-size: x-large;
     font-family: var(--headerFontFamily);
     width: 100%;

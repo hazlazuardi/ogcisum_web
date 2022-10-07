@@ -24,18 +24,18 @@ export default function Edit(props) {
         fetchSample(setSample, sampleId);
     }, [sampleId]);
 
-    console.log(sample.recording_data && JSON.parse(sample.recording_data))
+    console.log(initialRecordingData && JSON.parse(initialRecordingData))
     console.log(name)
 
 
     const [recordingData, setRecordingData] = useState([])
     useEffect(() => {
-        setRecordingData(sample.recording_data && JSON.parse(sample.recording_data))
+        setRecordingData(initialRecordingData && JSON.parse(initialRecordingData))
         console.log('setRec')
-    }, [sample.recording_data])
+    }, [initialRecordingData])
 
     const handleSubmit = async () => {
-        await fetch(UPDATE_URL(sampleId, sample.name, sample.type), { method: 'POST', body: JSON.stringify(recordingData) })
+        await fetch(UPDATE_URL(sampleId, name, type), { method: 'POST', body: JSON.stringify(recordingData) })
             .then(res => res.json())
             .then(res => console.log(res))
             .catch(e => console.log(e))
@@ -47,7 +47,7 @@ export default function Edit(props) {
     return (
         <>
             <div className='body'>
-                <h1>Edit this sample: {name}</h1>
+                <h1>Editing This Sample: </h1>
                 <SampleTextField {...props} type={type} sample={sample} setSample={setSample} recordingData={recordingData} onSubmit={handleSubmit} />
                 <InstrumentSelector sample={sample} setSample={setSample} {...props} />
                 <Sequencer {...props} isEdit sample={sample} recordingData={recordingData} setRecordingData={setRecordingData} />

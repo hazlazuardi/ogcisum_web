@@ -7,7 +7,7 @@ import styles from './Card.module.css'
 
 
 export default function SampleTextField(props) {
-    const { sample, recordingData, onSubmit } = props
+    const { onSubmit } = props
 
 
 

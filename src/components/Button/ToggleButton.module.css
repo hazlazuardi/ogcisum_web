@@ -1,0 +1,62 @@
+@import '../../App.css';
+
+:root {
+    --border-radius: 2px;
+    --font-weight: 800;
+}
+
+.default {
+    border-color: var(--bgColor);
+    border: 3px solid var(--fgColor);
+    /* padding: 0 1rem;  */
+    border-bottom: 5px solid var(--fgColor);
+
+    color: var(--fgColor);
+    background-color: var(--bgColor);
+}
+
+.contained {
+    border-color: var(--bgColor);
+    border: 1px solid var(--fgColor);
+    /* padding: 0 1rem; */
+    border-bottom: 5px solid var(--fgColor);
+
+
+    color: var(--bgColor);
+    background-color: var(--fgColor);
+}
+
+
+.toggle_button {
+    width: 100%;
+    padding: 0.5rem 1rem;
+
+    /* Remove default style */
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+    /* Make the hover smoother */
+    transition: 0.2s
+}
+
+.toggle_bar {
+    width: 100%;
+
+    /* Remove default style */
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+    /* Make the hover smoother */
+    transition: 0.2s
+}
+
+.toggle_button:hover {
+    background-color: var(--fgColorLighter);
+    color: white;
+}
+
+.in_progress {
+    opacity: 0.5;
+}

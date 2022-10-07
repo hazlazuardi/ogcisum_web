@@ -88,7 +88,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 1 */}
                 <div className={styles.type_item_text}>
-                    <p>{"B3"}</p>
+                    <p className={styles.list_text} >{"B"}</p>
                 </div>
 
                 {/* Item 2 */}
@@ -100,7 +100,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 1 */}
                 <div className={styles.type_item_text}>
-                    <p>{"A3"}</p>
+                    <p className={styles.list_text} >{"A"}</p>
                 </div>
 
                 {/* Item 2 */}
@@ -112,7 +112,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 1 */}
                 <div className={styles.type_item_text}>
-                    <p>{"G3"}</p>
+                    <p className={styles.list_text} >{"G"}</p>
                 </div>
 
                 {/* Item 2 */}
@@ -124,7 +124,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 1 */}
                 <div className={styles.type_item_text}>
-                    <p>{"F3"}</p>
+                    <p className={styles.list_text} >{"F"}</p>
                 </div>
 
                 {/* Item 2 */}
@@ -136,7 +136,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 1 */}
                 <div className={styles.type_item_text}>
-                    <p>{"E3"}</p>
+                    <p className={styles.list_text} >{"E"}</p>
                 </div>
 
                 {/* Item 2 */}
@@ -148,7 +148,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 1 */}
                 <div className={styles.type_item_text}>
-                    <p>{"D3"}</p>
+                    <p className={styles.list_text} >{"D"}</p>
                 </div>
 
                 {/* Item 2 */}
@@ -160,7 +160,7 @@ export default function Sequencer({ isEdit, sample, toneObject, recordingData, s
 
                 {/* Item 1 */}
                 <div className={styles.type_item_text}>
-                    <p>{"C3"}</p>
+                    <p className={styles.list_text} >{"C"}</p>
                 </div>
 
                 {/* Item 2 */}
