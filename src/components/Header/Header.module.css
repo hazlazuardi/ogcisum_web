@@ -22,6 +22,7 @@
     cursor: pointer;
     outline: inherit;
     text-decoration: none;
+    font-size: medium;
 }
 
 .header_logo_container {
@@ -45,9 +46,10 @@
 }
 
 .header_tagline {
-    padding: 1rem;
+    padding: 0 1rem;
     color: var(--headerTextColor);
     text-align: end;
+    font-size: 0.8rem;
 }
 
 .content {

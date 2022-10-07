@@ -41,7 +41,6 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 const READ_SAMPLES_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=samples&limit=${limit}&order=${order}`
 const READ_SAMPLES_TO_LOCATIONS_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=samples_to_locations&limit=${limit}&order=${order}`
 const READ_LOCATIONS_URL = (limit, order) => `${API_HOST}?apiKey=${API_KEY}&mode=read&endpoint=locations&limit=${limit}&order=${order}`
-const DELETE_SAMPLES_TO_LOCATIONS_URL = (id) => `${API_HOST}?apiKey=${API_KEY}&mode=delete&endpoint=samples_to_locations&id=${id}`
 
 export const fetchSample = async (setSample, sampleId) => {
     const localStorageData = JSON.parse(localStorage.getItem('samples'));
