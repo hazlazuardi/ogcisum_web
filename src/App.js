@@ -44,7 +44,7 @@ export default function App(props) {
 						<SampleCard key={sample.id} {...sample} sampleIDs={sampleIDs} {...props} />
 					))}
 
-					<Card>
+					<Card variant='translucent'>
 						<div className='create_sample_card'>
 							<Link to={'/create'}>
 								<Button variant='contained'>Create Sample</Button>

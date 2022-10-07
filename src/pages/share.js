@@ -34,7 +34,7 @@ export default function Share(props) {
     return (
         <>
             <div className='body'>
-                <h1>Share This Sample: {sampleId}</h1>
+                <h1>Share This Sample:</h1>
 
                 {sample && (
                     <Card>

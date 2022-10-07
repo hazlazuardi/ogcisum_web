@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom';
 import Button from '../Shared/Button'
 import PreviewButton from '../Shared/PreviewButton';
@@ -11,6 +11,9 @@ export default function SampleCard(props) {
     // console.log(id)
     // console.log(sampleIDs)
     // console.log(sampleIDs.includes(id))
+
+    const readableDateTime = new Date(datetime)
+    console.log(readableDateTime.getDay())
 
     const isShared = sampleIDs && sampleIDs.includes(id)
     return (

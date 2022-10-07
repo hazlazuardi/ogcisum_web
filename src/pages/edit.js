@@ -5,10 +5,8 @@ import InstrumentSelector from '../Components/Shared/InstrumentSelector';
 import Sequencer from '../Components/Shared/Sequencer';
 import { fetchSample } from '../helpers/apiCalls';
 import { useNavigate, useParams } from 'react-router-dom';
+import { UPDATE_SAMPLE_URL } from '../helpers/constants';
 
-const API_HOST = process.env.REACT_APP_HOST;
-const API_KEY = process.env.REACT_APP_API_KEY;
-const UPDATE_URL = (id, sampleName, sampleType) => `${API_HOST}?apiKey=${API_KEY}&mode=update&endpoint=samples&sampleType=${sampleType}&sampleName=${sampleName}&id=${id}`
 
 export default function Edit(props) {
 
@@ -20,7 +18,7 @@ export default function Edit(props) {
         fetchSample(setSample, sampleId);
     }, [sampleId]);
 
-    console.log(sample)
+    // console.log(sample)
     // console.log(initialRecordingData && JSON.parse(initialRecordingData))
     // console.log(name)
 
@@ -34,7 +32,7 @@ export default function Edit(props) {
 
     const navigate = useNavigate()
     const handleSubmit = async () => {
-        await fetch(UPDATE_URL(sampleId, name, type), { method: 'POST', body: JSON.stringify(recordingData) })
+        await fetch(UPDATE_SAMPLE_URL(sampleId, name, type), { method: 'POST', body: JSON.stringify(recordingData) })
             .then(res => res.json())
             .then(res => {
                 console.log(res);
@@ -42,9 +40,6 @@ export default function Edit(props) {
             })
             .catch(e => console.log(e))
     }
-
-    // console.log('sample', sample)
-    // console.log('recordingData', recordingData)
 
     return (
         <>

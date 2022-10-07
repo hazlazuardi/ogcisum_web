@@ -4,10 +4,8 @@ import '../App.css'
 import InstrumentSelector from '../Components/Shared/InstrumentSelector';
 import Sequencer from '../Components/Shared/Sequencer';
 import { useNavigate } from 'react-router-dom';
+import { CREATE_SAMPLE_URL } from '../helpers/constants';
 
-const API_HOST = process.env.REACT_APP_HOST;
-const API_KEY = process.env.REACT_APP_API_KEY;
-const CREATE_URL = (sampleName, sampleType) => `${API_HOST}?apiKey=${API_KEY}&mode=create&endpoint=samples&sampleType=${sampleType}&sampleName=${sampleName}`
 
 export default function Create(props) {
 
@@ -21,12 +19,9 @@ export default function Create(props) {
     const [recordingData, setRecordingData] = useState([])
 
 
-    console.log('sample', sample)
-    console.log('recordingData', recordingData)
-
     const navigate = useNavigate();
     const handleSubmit = async () => {
-        await fetch(CREATE_URL(sample.name, sample.type), { method: 'POST', body: JSON.stringify(recordingData) })
+        await fetch(CREATE_SAMPLE_URL(sample.name, sample.type), { method: 'POST', body: JSON.stringify(recordingData) })
             .then(res => res.json())
             .then(res => {
                 console.log(res)
@@ -39,9 +34,9 @@ export default function Create(props) {
         <>
             <div className='body'>
                 <h1>Create a New Sample:</h1>
-                <SampleTextField {...props} type={sample.type} sample={sample} setSample={setSample} recordingData={recordingData} onSubmit={handleSubmit} />
+                <SampleTextField {...props} {...sample} recording_data={JSON.stringify(recordingData)} setSample={setSample} onSubmit={handleSubmit} />
                 <InstrumentSelector sample={sample} setSample={setSample} {...props} />
-                <Sequencer {...props} sample={sample} setRecordingData={setRecordingData} />
+                <Sequencer {...props} {...sample} recordingData={recordingData} setRecordingData={setRecordingData} />
             </div>
         </>
     )

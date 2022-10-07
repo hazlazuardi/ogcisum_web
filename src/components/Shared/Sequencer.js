@@ -65,7 +65,7 @@ export default function Sequencer(props) {
             })))
 
         }
-
+        // eslint-disable-next-line
     }, [JSON.stringify(recordingData), isEdit])
 
     // Update data everytime sequence changes
