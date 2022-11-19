@@ -9,7 +9,7 @@ export const fetchData = async (url) => {
         .then(res => res.json())
         .then(res => {
             const dataWithTimestamp = addTimestamp(res)
-            
+
             return dataWithTimestamp;
         })
         .catch(error => {
@@ -27,7 +27,7 @@ export const postData = async (url, body) => {
         .then(res => res.json())
         .then(res => {
             const dataWithTimestamp = addTimestamp(res)
-            
+
             return dataWithTimestamp;
         })
         .catch(error => {
@@ -43,10 +43,10 @@ export const fetchSamples = async (setSamples) => {
         console.log(localStorageData)
         setSamples(JSON.parse(localStorageData).samples)
     } else {
-        const data = await fetchData(READ_SAMPLES_URL(999, 'asc'))
+        const data = await fetchData(READ_SAMPLES_URL)
         setSamples(data.samples)
         localStorage.setItem("samples", JSON.stringify(data))
-        
+
     }
 }
 
@@ -55,14 +55,14 @@ export const fetchSamples = async (setSamples) => {
 export const fetchSample = async (setSample, sampleId) => {
     const localStorageData = JSON.parse(localStorage.getItem('samples'));
     if (localStorageData && isValidCache(localStorageData)) {
-        setSample(localStorageData.samples.filter(sample => sample.id === `${sampleId}`)[0])
+        setSample(localStorageData.samples.filter(sample => sample.id === parseInt(sampleId))[0])
         console.log('from storage')
     } else {
-        await fetchData(READ_SAMPLES_URL(9999, 'asc'))
+        await fetchData(READ_SAMPLES_URL)
             .then(res => {
-                setSample(res.samples?.filter(sample => sample.id === `${sampleId}`)[0])
+                setSample(res.samples?.filter(sample => sample.id === parseInt(sampleId))[0])
                 localStorage.setItem("samples", JSON.stringify(res))
-                console.log('from api')
+                // console.log('from api', res.samples?.filter(sample => sample.id === 1))
             })
             .catch(e => {
                 console.log(e)
@@ -73,13 +73,13 @@ export const fetchSample = async (setSample, sampleId) => {
 export const fetchSharedLocations = async (setSharedLocations, sampleId) => {
     // const localStorageData = JSON.parse(localStorage.getItem('samples_to_locations'));
     // if (localStorageData && isValidCache(localStorageData)) {
-    //     const filteredLocalData = localStorageData?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`);
+    //     const filteredLocalData = localStorageData?.samples_to_locations?.filter(sample => sample.sample_id === `${sampleId}`);
     //     setSharedLocations(filteredLocalData);
     //     
     // } else {
     //     await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
     //         .then(res => {
-    //             const filteredData = res?.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`)
+    //             const filteredData = res?.samples_to_locations?.filter(sample => sample.sample_id === `${sampleId}`)
     //             setSharedLocations(filteredData);
     //             localStorage.setItem("samples_to_locations", JSON.stringify(res))
     //         })
@@ -88,9 +88,9 @@ export const fetchSharedLocations = async (setSharedLocations, sampleId) => {
     //         })
     //     
     // }
-    await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
+    await fetchData(READ_SAMPLES_TO_LOCATIONS_URL)
         .then(res => {
-            const filteredData = res.samples_to_locations?.filter(sample => sample.samples_id === `${sampleId}`)
+            const filteredData = res.samples_to_locations?.filter(sample => sample.sample_id === parseInt(sampleId))
             setSharedLocations(filteredData);
             localStorage.setItem("sharedLocations", JSON.stringify(res))
             console.log('fetched', filteredData)
@@ -98,7 +98,7 @@ export const fetchSharedLocations = async (setSharedLocations, sampleId) => {
         .catch(e => {
             console.log(e)
         })
-    
+
 
 }
 
@@ -106,17 +106,17 @@ export const fetchLocations = async (setLocations) => {
     const localStorageData = JSON.parse(localStorage.getItem('locations'));
     if (localStorageData && isValidCache(localStorageData)) {
         setLocations(localStorageData.locations);
-        
+
     } else {
-        const data = await fetchData(READ_LOCATIONS_URL(9999, 'asc'))
+        const data = await fetchData(READ_LOCATIONS_URL)
         setLocations(data.locations);
         localStorage.setItem("locations", JSON.stringify(data))
-        
+
     }
 }
 
 export const fetchSamplesToLocations = async (setSamplesToLocations) => {
-    await fetchData(READ_SAMPLES_TO_LOCATIONS_URL(9999, 'asc'))
+    await fetchData(READ_SAMPLES_TO_LOCATIONS_URL)
         .then(res => {
             setSamplesToLocations(res?.samples_to_locations);
             localStorage.setItem("samples_to_locations", JSON.stringify(res))

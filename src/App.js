@@ -25,7 +25,7 @@ export default function App(props) {
 
 	const [sampleIDs, setSampleIDs] = useState([])
 	useEffect(() => {
-		setSampleIDs(samplesToLocations?.map(location => location.samples_id))
+		setSampleIDs(samplesToLocations?.map(location => location.sample_id))
 		localStorage.setItem("relIDs", samplesToLocations?.map(location => location.id))
 	}, [samplesToLocations])
 

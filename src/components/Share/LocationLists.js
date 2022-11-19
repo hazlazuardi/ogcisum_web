@@ -1,3 +1,4 @@
+import { computeHeadingLevel } from '@testing-library/react';
 import React, { useEffect, useState } from 'react'
 import { fetchSharedLocations } from '../../helpers/apiCalls';
 import { UNSHARE_URL, SHARE_URL } from '../../helpers/constants';
@@ -8,28 +9,27 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
 
     const [locationIDs, setLocationIDs] = useState([])
     useEffect(() => {
-        setLocationIDs(sharedLocations?.map(location => location.locations_id))
+        setLocationIDs(sharedLocations?.map(location => location.location_id))
     }, [locationID, sharedLocations])
 
     const [relID, setRelID] = useState();
     useEffect(() => {
-        setRelID(sharedLocations?.filter(rel => rel.locations_id === locationID).map(rel => rel.id)[0])
+        setRelID(sharedLocations?.filter(rel => rel.location_id === locationID).map(rel => rel.id)[0])
     }, [locationID, sharedLocations])
 
-    
-    
-    
+
+
+
 
     const [isShared, setIsShared] = useState(locationIDs?.includes(locationID))
     useEffect(() => {
         if (locationIDs && locationID && !isLoaded) {
             setIsShared(locationIDs.includes(locationID))
-            console.log('still running')
         }
     }, [isLoaded, locationID, locationIDs])
 
     const [isLoadingSharing, setIsLoadingSharing] = useState(false)
-    const handleShare = async (samID, locID, relID) => {
+    const handleShare = async (samID, locID) => {
 
         if (!isShared && !isLoadingNotSharing && !isLoadingSharing) {
             console.log('click share')
@@ -48,7 +48,11 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
                         setIsShared(true)
                     }
                 })
-                .catch(e => console.log(e))
+                .catch(e => {
+                    console.log(e)
+                    setIsLoadingSharing(false)
+                    setIsShared(false)
+                })
 
         }
         else {
@@ -58,7 +62,7 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
     }
 
     const [isLoadingNotSharing, setIsLoadingNotSharing] = useState(false)
-    const handleNotShare = async (relID, locID) => {
+    const handleNotShare = async (relID) => {
         if (isShared) {
             console.log('click unshare')
             setIsLoadingNotSharing(true)
@@ -76,7 +80,11 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
                         setIsShared(false)
                     }
                 })
-                .catch(e => console.log(e))
+                .catch(e => {
+                    console.log(e)
+                    setIsLoadingNotSharing(false)
+                    setIsShared(true)
+                })
         }
         else {
             console.log('cannot click unshare')
@@ -85,11 +93,11 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
 
     }
 
-    
-    
-    
-    
-    
+
+
+
+
+
     return (
         <>
             {/* Container */}
@@ -103,8 +111,8 @@ export default function LocationLists({ locationID, sampleID, locationName, shar
                 {/* Item 2 */}
                 <div className={`${styles.item} ${styles.item_action}`}>
                     {/* ToggleButtons */}
-                    <ToggleButton variant={!isShared && 'contained'} onClick={() => handleNotShare(relID, locationID)} >{isLoadingNotSharing ? "Not Sharing..." : "Not Shared"}</ToggleButton>
-                    <ToggleButton variant={isShared && 'contained'} onClick={() => handleShare(sampleID, locationID, relID)} >{isLoadingSharing ? "Sharing..." : "Shared"}</ToggleButton>
+                    <ToggleButton variant={!isShared && 'contained'} onClick={() => handleNotShare(relID)} >{isLoadingNotSharing ? "Not Sharing..." : "Not Shared"}</ToggleButton>
+                    <ToggleButton variant={isShared && 'contained'} onClick={() => handleShare(sampleID, locationID)} >{isLoadingSharing ? "Sharing..." : "Shared"}</ToggleButton>
                 </div>
             </div>
         </>
