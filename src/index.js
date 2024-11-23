@@ -8,7 +8,7 @@ import Create from './Pages/Create';
 import Share from './Pages/Share';
 import Edit from './Pages/Edit';
 import Header from './Components/Header/Header';
-import { toneObject, toneTransport, tonePart } from "./data/instruments.js";
+import { toneObject, toneTransport, tonePart } from "./data/instruments";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

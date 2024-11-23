@@ -1,5 +1,5 @@
 import React from 'react'
-import ToggleButton from '../Shared/ToggleButton'
+import ToggleButton from './ToggleButton'
 import styles from './InstrumentSelector.module.css'
 
 export default function InstrumentSelector(props) {

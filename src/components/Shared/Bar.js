@@ -1,5 +1,5 @@
 import React from 'react'
-import ToggleButton from '../Shared/ToggleButton';
+import ToggleButton from './ToggleButton';
 
 export default function Bar({ barToggled, handleBarClick }) {
 

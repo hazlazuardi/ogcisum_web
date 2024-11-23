@@ -1,5 +1,5 @@
 import React from 'react'
-import { guitar, frenchHorn, drums, piano } from "../../data/instruments";
+import { guitar, frenchHorn, drums, piano } from "../../data/instruments.js";
 import Bar from './Bar.js';
 
 
