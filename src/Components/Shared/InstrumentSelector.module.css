@@ -1,16 +1,19 @@
 @import '../../App.css';
 
 .type_container {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 10% 90%;
     padding: 1rem 0;
-    /* gap: 1rem; */
+    gap: 1rem; */
+    overflow-x: scroll;
+    display: flex;
+    flex-direction: column;
 }
 
 .type_item_text {
     /* width: 20%; */
     display: flex;
-    justify-self: end;
+    /* justify-self: end; */
     color: var(--headerTextColor);
 }
 
@@ -18,9 +21,9 @@
     display: flex;
     justify-content: space-evenly;
     justify-self: stretch;
-    padding: 0 0 0 1rem;
-    /* flex-grow: 1; */
-    /* width: 100%; */
+    /* padding: 0 0 0 1rem; */
+    flex-grow: 1;
+    width: 100%;
 }
 
 .list_text {

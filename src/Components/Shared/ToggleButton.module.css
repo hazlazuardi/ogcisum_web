@@ -29,6 +29,8 @@
 
 .toggle_button {
     width: 100%;
+    /* width: 72px; */
+
     padding: 0.5rem 1rem;
 
     /* Remove default style */
@@ -41,7 +43,10 @@
 }
 
 .toggle_bar {
-    width: 100%;
+    /* width: 100%; */
+
+    width: 80px;
+    height: 80px;
 
     /* Remove default style */
     font: inherit;

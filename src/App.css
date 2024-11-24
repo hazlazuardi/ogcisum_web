@@ -49,6 +49,8 @@ html {
 .body {
   padding: 1em;
   font-family: var(--bodyFontFamily);
+  width: calc(100% - 2em);
+  overflow: hidden;
   max-width: calc(1067pt - 2em);
   margin: 0 auto;
 }

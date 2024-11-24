@@ -36,7 +36,11 @@ export default function Create(props) {
                 <h1>Create a New Sample:</h1>
                 <SampleTextField {...props} {...sample} recording_data={JSON.stringify(recordingData)} setSample={setSample} onSubmit={handleSubmit} />
                 <InstrumentSelector sample={sample} setSample={setSample} {...props} />
-                <Sequencer {...props} {...sample} recordingData={recordingData} setRecordingData={setRecordingData} />
+                <div style={{ overflowX: 'scroll' }}>
+                    <div style={{ width: 1000 }}>
+                        <Sequencer {...props} {...sample} recordingData={recordingData} setRecordingData={setRecordingData} />
+                    </div>
+                </div>
             </div>
         </>
     )
